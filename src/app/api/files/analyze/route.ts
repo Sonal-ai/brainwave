@@ -5,44 +5,42 @@ import { join } from 'path';
 import { parseTimetable } from '@/ai/flows/timetable-parsing';
 import { STATIC_SUBJECTS } from '@/lib/constants';
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
     try {
-        const body = await request.json();
-        const { username, fileId } = body;
+        const { username, fileId } = await req.json();
 
-        if (!username || !fileId) {
-            return NextResponse.json({ message: 'Missing params' }, { status: 400 });
-        }
-
+        // 1. Get File Record
         const db = getDb();
-        const userIndex = db.users.findIndex(u => u.username === username);
-        if (userIndex === -1) return NextResponse.json({ message: 'User not found' }, { status: 404 });
+        const user = db.users.find(u => u.username === username);
+        if (!user) return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
 
-        const user = db.users[userIndex];
-        const fileIndex = user.files.findIndex(f => f.id === fileId);
+        const fileRecord = user.files.find(f => f.id === fileId);
+        if (!fileRecord) return NextResponse.json({ success: false, message: "File not found" }, { status: 404 });
 
-        if (fileIndex === -1) return NextResponse.json({ message: 'File not found' }, { status: 404 });
+        // 2. Resolve Local Path
+        const relativePath = fileRecord.mediaId?.replace('/uploads/', '') || "";
+        const localPath = join(process.cwd(), 'public', 'uploads', relativePath);
 
-        const file = user.files[fileIndex];
-
-        if (!file.mediaId) {
-            return NextResponse.json({ message: 'No file data found please re-upload.' }, { status: 400 });
+        if (!fs.existsSync(localPath)) {
+            return NextResponse.json({ success: false, message: "Physical file missing" }, { status: 404 });
         }
 
-        // 1. Read File from Disk
-        // mediaId is now "/uploads/xyz.jpg" -> we map to filesystem
-        const filePath = join(process.cwd(), 'public', file.mediaId);
+        // 3. Prepare Image for Gemini (Base64 Data URI)
+        const buffer = await readFile(localPath);
+        let ext = (localPath.split('.').pop() || 'jpeg').toLowerCase();
+        if (ext === 'jpg') ext = 'jpeg';
+        const mimeType = ext === 'pdf' ? 'application/pdf' : `image/${ext}`;
+        const base64Data = `data:${mimeType};base64,${buffer.toString('base64')}`;
 
-        let base64Data = '';
-        try {
-            const buffer = await readFile(filePath);
-            let ext = (filePath.split('.').pop() || 'jpeg').toLowerCase();
-            if (ext === 'jpg') ext = 'jpeg';
-            const mimeType = ext === 'pdf' ? 'application/pdf' : `image/${ext}`;
-            base64Data = `data:${mimeType};base64,${buffer.toString('base64')}`;
-        } catch (e) {
-            console.error("File Read Error:", e);
-            return NextResponse.json({ message: 'File not found on server disk.' }, { status: 404 });
+        // 4. Call Genkit Flow (Gemini Direct)
+        console.log(`Analyzing timetable with Gemini: ${fileRecord.name}`);
+        const result = await analyzeTimetable({
+            fileDataUri: base64Data
+        });
+
+        // 5. Update DB
+        if (result.subjects) {
+            user.subjects = [...new Set([...user.subjects, ...result.subjects])];
         }
 
         // 2. Run Genkit Flow
@@ -91,8 +89,24 @@ export async function POST(request: Request) {
             }, { status: 500 });
         }
 
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({ message: 'Analysis failed' }, { status: 500 });
+        fileRecord.parsed = true;
+
+        // Save
+        const userIdx = db.users.findIndex(u => u.username === username);
+        db.users[userIdx] = user;
+        saveDb(db);
+
+        return NextResponse.json({
+            success: true,
+            subjects: result.subjects,
+            schedule: result.schedule
+        });
+
+    } catch (e: any) {
+        console.error("Analysis Error:", e);
+        return NextResponse.json({
+            success: false,
+            message: e.message || "Internal Server Error"
+        }, { status: 500 });
     }
 }
