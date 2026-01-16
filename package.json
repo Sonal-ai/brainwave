@@ -28,7 +28,10 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
+<<<<<<< HEAD
     "genkit": "^1.27.0",
+=======
+>>>>>>> e3aac0ff2f3a6009208eabd19185954106121b0d
     "typescript": "^5"
   }
 }

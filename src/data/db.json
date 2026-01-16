@@ -12,6 +12,7 @@
       "username": "shdra",
       "password": "12345",
       "name": "shivendra",
+<<<<<<< HEAD
       "files": [
         {
           "id": "a1bc6971-2921-44ad-88d2-eaf73ce82748",
@@ -404,6 +405,12 @@
             ]
           }
         ]
+=======
+      "files": [],
+      "subjects": [],
+      "timetable": {
+        "subjects": []
+>>>>>>> e3aac0ff2f3a6009208eabd19185954106121b0d
       }
     }
   ]
