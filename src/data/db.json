@@ -127,7 +127,9 @@
         "DBMS Lab[CS210] G3",
         "CN Lab[CS208](G3)",
         "DBMS Lab[CS210] G2",
-        "DBMS Lab G1"
+        "DBMS Lab G1",
+        "CN Lab",
+        "DBMS Lab"
       ],
       "files": [
         {
@@ -139,19 +141,190 @@
           "uploadDate": "2026-01-16T21:17:24.210Z",
           "mediaId": "/uploads/1768598244202-172782.jpeg",
           "parsed": true
+        },
+        {
+          "id": "9186ec5c-23c8-45eb-8c4e-5a46b3450bbf",
+          "name": "timetable cse 5.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T21:40:12.443Z",
+          "mediaId": "/uploads/1768599612435-timetable_cse_5.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "2ddd2e79-2af5-4feb-95dc-ac754142afd4",
+          "name": "timetable cse 5.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T21:40:37.089Z",
+          "mediaId": "/uploads/1768599637083-timetable_cse_5.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "f1739cbc-518e-4a0e-a6d1-0cc3a6b20135",
+          "name": "timetable cse 5.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T21:44:51.340Z",
+          "mediaId": "/uploads/1768599891336-timetable_cse_5.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "d8b7fb27-2df5-47e3-99ae-786822dce08c",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T21:45:11.596Z",
+          "mediaId": "/uploads/1768599911593-172782.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "63a31e4b-5c96-439c-861f-d32c00bce68c",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T21:46:25.427Z",
+          "mediaId": "/uploads/1768599985413-172782.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "ded2fc59-c5c2-4dd0-b4b6-1ab1ddca0a20",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T21:47:13.704Z",
+          "mediaId": "/uploads/1768600033698-172782.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "75ac75c4-7830-4af6-8d17-8ff7f809807f",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T21:47:38.044Z",
+          "mediaId": "/uploads/1768600058035-172782.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "b4cd19f4-9c3d-434f-bc1f-87990b70ac99",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T21:50:54.815Z",
+          "mediaId": "/uploads/1768600254809-172782.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "b4ab1d03-5c07-4a48-a290-f16a134dc30a",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T21:54:14.775Z",
+          "mediaId": "/uploads/1768600454772-172782.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "eeab0fb8-5683-49d1-a2d8-64be05251eee",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T21:55:31.313Z",
+          "mediaId": "/uploads/1768600531307-172782.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "953ad0b4-7ce2-4df9-9359-0f54512ec6a6",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T21:56:50.488Z",
+          "mediaId": "/uploads/1768600610481-172782.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "869543fc-45de-4cb8-8f68-6bb06b6e8138",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T21:58:58.286Z",
+          "mediaId": "/uploads/1768600738280-172782.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "4417d7ca-7845-4e97-9f4e-5e6bb2f482d3",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T22:00:05.631Z",
+          "mediaId": "/uploads/1768600805625-172782.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "a16d38ab-1710-4d3e-9a87-fce2d6888e71",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T22:01:37.835Z",
+          "mediaId": "/uploads/1768600897825-172782.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "0c6ce838-8e4c-4508-a5ec-e583782680c4",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T22:02:50.201Z",
+          "mediaId": "/uploads/1768600970194-172782.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "c76251cd-fbfa-4302-a924-3d7df6dfe6a9",
+          "name": "Tutorial_1.pdf",
+          "size": 415097,
+          "type": "resource",
+          "subject": "PROGRAMMING FUNDAMENTALS",
+          "uploadDate": "2026-01-16T22:03:50.068Z",
+          "mediaId": "/uploads/1768601030061-Tutorial_1.pdf",
+          "parsed": false
         }
       ],
       "timetable": {
         "subjects": [
           {
-            "name": "CN Lab(G1)",
+            "name": "CN Lab",
             "classes": [
               {
                 "day": "MON",
                 "start_time": "10:00",
                 "end_time": "12:00",
-                "location": "IOT Lab",
-                "subject": "CN Lab(G1)"
+                "location": "IOT Lab"
+              },
+              {
+                "day": "TUE",
+                "start_time": "14:00",
+                "end_time": "16:00",
+                "location": "IOT Lab"
+              },
+              {
+                "day": "WED",
+                "start_time": "14:00",
+                "end_time": "17:00",
+                "location": "IOT Lab"
               }
             ]
           },
@@ -162,29 +335,25 @@
                 "day": "MON",
                 "start_time": "13:00",
                 "end_time": "14:00",
-                "location": "AB4-106",
-                "subject": "TOC CS-204"
+                "location": "AB4-106"
               },
               {
                 "day": "TUE",
                 "start_time": "10:00",
                 "end_time": "11:00",
-                "location": "AB4-106",
-                "subject": "TOC CS-204"
+                "location": "AB4-106"
               },
               {
                 "day": "WED",
-                "start_time": "11:00",
-                "end_time": "12:00",
-                "location": "AB4-106",
-                "subject": "TOC CS-204"
+                "start_time": "12:00",
+                "end_time": "13:00",
+                "location": "AB4-106"
               },
               {
-                "day": "THUR",
+                "day": "THU",
                 "start_time": "13:00",
                 "end_time": "14:00",
-                "location": "AB4-416",
-                "subject": "TOC CS-204"
+                "location": "AB4-416"
               }
             ]
           },
@@ -195,22 +364,25 @@
                 "day": "MON",
                 "start_time": "14:00",
                 "end_time": "15:00",
-                "location": "AB4-106",
-                "subject": "CN CS-208"
+                "location": "AB4-106"
               },
               {
                 "day": "TUE",
                 "start_time": "12:00",
                 "end_time": "13:00",
-                "location": "AB4-106",
-                "subject": "CN CS-208"
+                "location": "AB4-106"
+              },
+              {
+                "day": "WED",
+                "start_time": "14:00",
+                "end_time": "17:00",
+                "location": "IOT Lab"
               },
               {
                 "day": "FRI",
                 "start_time": "09:00",
                 "end_time": "10:00",
-                "location": "AB4-106",
-                "subject": "CN CS-208"
+                "location": "AB4-106"
               }
             ]
           },
@@ -221,34 +393,19 @@
                 "day": "MON",
                 "start_time": "15:00",
                 "end_time": "17:00",
-                "location": "AB4-106",
-                "subject": "CSO CS-206"
+                "location": "AB4-106"
               },
               {
                 "day": "TUE",
                 "start_time": "11:00",
                 "end_time": "12:00",
-                "location": "AB4-106",
-                "subject": "CSO CS-206"
+                "location": "AB4-106"
               },
               {
                 "day": "FRI",
                 "start_time": "11:00",
                 "end_time": "12:00",
-                "location": "AB4-106",
-                "subject": "CSO CS-206"
-              }
-            ]
-          },
-          {
-            "name": "CN Lab[CS208](G2)",
-            "classes": [
-              {
-                "day": "TUE",
-                "start_time": "13:00",
-                "end_time": "15:00",
-                "location": "IOT Lab",
-                "subject": "CN Lab[CS208](G2)"
+                "location": "AB4-106"
               }
             ]
           },
@@ -258,23 +415,20 @@
               {
                 "day": "WED",
                 "start_time": "09:00",
-                "end_time": "10:00",
-                "location": "AB4-106",
-                "subject": "P&S CS202"
+                "end_time": "11:00",
+                "location": "AB4-106"
               },
               {
-                "day": "THUR",
+                "day": "THU",
                 "start_time": "14:00",
                 "end_time": "15:00",
-                "location": "AB4-416",
-                "subject": "P&S CS202"
+                "location": "AB4-416"
               },
               {
                 "day": "FRI",
                 "start_time": "10:00",
                 "end_time": "11:00",
-                "location": "AB4-106",
-                "subject": "P&S CS202"
+                "location": "AB4-106"
               }
             ]
           },
@@ -283,72 +437,44 @@
             "classes": [
               {
                 "day": "WED",
-                "start_time": "10:00",
-                "end_time": "11:00",
-                "location": "AB4-106",
-                "subject": "DBMS CS-210"
+                "start_time": "11:00",
+                "end_time": "12:00",
+                "location": "AB4-106"
               },
               {
-                "day": "THUR",
+                "day": "THU",
                 "start_time": "15:00",
-                "end_time": "16:00",
-                "location": "AB4-416",
-                "subject": "DBMS CS-210"
+                "end_time": "17:00",
+                "location": "AB4-416"
               },
               {
                 "day": "FRI",
                 "start_time": "12:00",
                 "end_time": "13:00",
-                "location": "AB4-106",
-                "subject": "DBMS CS-210"
+                "location": "AB4-106"
               }
             ]
           },
           {
-            "name": "DBMS Lab[CS210] G3",
+            "name": "DBMS Lab",
             "classes": [
               {
                 "day": "WED",
                 "start_time": "14:00",
                 "end_time": "17:00",
-                "location": "IOT Lab",
-                "subject": "DBMS Lab[CS210] G3"
-              }
-            ]
-          },
-          {
-            "name": "CN Lab[CS208](G3)",
-            "classes": [
+                "location": "IOT Lab"
+              },
               {
-                "day": "WED",
-                "start_time": "14:00",
-                "end_time": "17:00",
-                "location": "IOT Lab",
-                "subject": "CN Lab[CS208](G3)"
-              }
-            ]
-          },
-          {
-            "name": "DBMS Lab[CS210] G2",
-            "classes": [
-              {
-                "day": "THUR",
+                "day": "THU",
                 "start_time": "10:00",
                 "end_time": "12:00",
-                "location": "DBMS Lab",
-                "subject": "DBMS Lab[CS210] G2"
-              }
-            ]
-          },
-          {
-            "name": "DBMS Lab G1",
-            "classes": [
+                "location": "AB4-106"
+              },
               {
                 "day": "FRI",
-                "start_time": "13:00",
-                "end_time": "15:00",
-                "location": "DBMS Lab",
-                "subject": "DBMS Lab G1"
+                "start_time": "14:00",
+                "end_time": "16:00",
+                "location": "AB4-106"
               }
             ]
           }
