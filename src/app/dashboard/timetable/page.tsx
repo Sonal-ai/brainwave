@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth0 } from '@auth0/auth0-react';
+import { STATIC_SUBJECTS } from '@/lib/constants';
 
 export default function TimetablePage() {
     const router = useRouter();

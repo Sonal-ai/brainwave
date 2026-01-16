@@ -2,21 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import { STATIC_SUBJECTS } from '@/lib/constants';
 
 export default function AttendancePage() {
     const { user } = useAuth0();
 
     // Default subjects from static data (fallback)
-    const DEFAULT_SUBJECTS = [
-        "COMPUTER AIDED ENGINEERING GRAPHICS-2",
-        "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
-        "PROGRAMMING FUNDAMENTALS",
-        "AS SELECTED",
-        "MATHEMATICS-I",
-        "WEB DESIGNING"
-    ];
-
-    const [subjects, setSubjects] = useState<string[]>(DEFAULT_SUBJECTS);
+    const [subjects, setSubjects] = useState<string[]>(STATIC_SUBJECTS);
     const [attendance, setAttendance] = useState<Record<string, { attended: number; total: number }>>({});
 
     // Load Data
@@ -28,7 +20,7 @@ export default function AttendancePage() {
         } else {
             // Initialize
             const initial: any = {};
-            DEFAULT_SUBJECTS.forEach(s => initial[s] = { attended: 0, total: 0 });
+            STATIC_SUBJECTS.forEach(s => initial[s] = { attended: 0, total: 0 });
             setAttendance(initial);
         }
 

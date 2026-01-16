@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth0 } from '@auth0/auth0-react';
+import { STATIC_SUBJECTS } from '@/lib/constants';
 
 export default function Dashboard() {
     const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Summariser from '@/components/Utilities/Summariser';
+import QuizMaster from '@/components/Utilities/QuizMaster';
 import styles from './page.module.css';
 
 export default function UtilitiesPage() {
@@ -21,11 +22,18 @@ export default function UtilitiesPage() {
                 >
                     Summariser
                 </button>
+                <button
+                    className={`${styles.tab} ${activeTab === 'quiz' ? styles.active : ''}`}
+                    onClick={() => setActiveTab('quiz')}
+                >
+                    Quiz Master
+                </button>
                 {/* Future utility tabs can be added here */}
             </div>
 
             <div className={styles.content}>
                 {activeTab === 'summariser' && <Summariser />}
+                {activeTab === 'quiz' && <QuizMaster />}
             </div>
         </div>
     );

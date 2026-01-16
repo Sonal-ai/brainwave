@@ -3,6 +3,7 @@ import { getDb, saveDb } from '@/lib/db';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import { parseTimetable } from '@/ai/flows/timetable-parsing';
+import { STATIC_SUBJECTS } from '@/lib/constants';
 
 export async function POST(request: Request) {
     try {
@@ -54,7 +55,17 @@ export async function POST(request: Request) {
                 user.timetable = result;
 
                 const extractedSubjects = result.subjects.map((s: any) => s.name);
-                user.subjects = Array.from(new Set([...(user.subjects || []), ...extractedSubjects]));
+
+                // Logic to REPLACE the static subjects if they are the only ones present
+                const currentSubjects = user.subjects || [];
+                const isOnlyStatic = currentSubjects.length === STATIC_SUBJECTS.length &&
+                    currentSubjects.every(val => STATIC_SUBJECTS.includes(val));
+
+                if (isOnlyStatic) {
+                    user.subjects = extractedSubjects;
+                } else {
+                    user.subjects = Array.from(new Set([...currentSubjects, ...extractedSubjects]));
+                }
 
                 // Update File Status
                 user.files[fileIndex].subject = 'Timetable (Analyzed)';
