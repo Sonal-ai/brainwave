@@ -6,10 +6,41 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const AIChatbot = () => {
     const { user } = useAuth0();
+    const [studentContext, setStudentContext] = React.useState<string>("");
+
+    React.useEffect(() => {
+        // Collect Student Data for Context
+        const attData = localStorage.getItem('attendance_data');
+        const acadData = localStorage.getItem('academic_data');
+
+        let summary = "Student Academic Status:\n";
+
+        if (attData) {
+            const att = JSON.parse(attData);
+            summary += "Attendance:\n";
+            Object.keys(att).forEach(sub => {
+                const p = att[sub];
+                if (p.total > 0) {
+                    const pct = ((p.attended / p.total) * 100).toFixed(1);
+                    summary += `- ${sub}: ${pct}% (${p.attended}/${p.total})\n`;
+                }
+            });
+        }
+
+        if (acadData) {
+            const acad = JSON.parse(acadData);
+            if (acad.cgpa) {
+                summary += `Current CGPA: ${acad.cgpa}\n`;
+            }
+        }
+
+        setStudentContext(summary);
+    }, []);
 
     const contextVariables = [
         { key: "name", value: user?.name || "User" },
         { key: "email", value: user?.email || "anonymous@example.com" },
+        { key: "student_data", value: studentContext },
     ];
 
     return (
