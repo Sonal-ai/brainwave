@@ -182,13 +182,55 @@ export default function FilesPage() {
             if (data.file) {
                 addToLog('✅ Upload Success.');
 
-                // STEP 2: Analyze if Timetable
+                // STEP 2: Analyze if Timetable OR Auto-Detect Resource
                 if (isTimetable) {
-                    setStatusMessages(prev => [...prev, "Analysing with Genkit (Gemini)..."]);
-                    addToLog('🚀 Triggering AI Analysis...');
+                    setStatusMessages(prev => [...prev, "Analysing with Genkit (Gemini 1.5 Pro)..."]);
+                    addToLog('🚀 Triggering Timetable Analysis...');
                     await handleAnalyze(data.file.id, data.file.name);
+                } else if (!isTimetable && (!selectedSubject || selectedSubject === "")) {
+                    // Auto-Classification for Resources
+                    setStatusMessages(prev => [...prev, "Auto-Classifying file..."]);
+                    addToLog('🧠 AI Classifying Subject...');
+
+                    try {
+                        const classifyRes = await fetch('/api/files/classify', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ username: user.username, fileId: data.file.id })
+                        });
+                        const classifyData = await classifyRes.json();
+
+                        if (classifyData.success) {
+                            addToLog(`✅ Classified as: ${classifyData.subject}`);
+
+                            // Update Local State
+                            const updatedSubjects = [...user.subjects];
+                            if (!updatedSubjects.includes(classifyData.subject)) {
+                                updatedSubjects.push(classifyData.subject);
+                            }
+                            const updatedUser = { ...user, subjects: updatedSubjects };
+                            setUser(updatedUser);
+                            localStorage.setItem('user', JSON.stringify(updatedUser));
+                            setSubjects(updatedSubjects);
+
+                            // Refresh List
+                            const listRes = await fetch(`/api/files?username=${user.username}`);
+                            const listData = await listRes.json();
+                            setFiles(listData.files);
+
+                            alert(`Success! '${data.file.name}' classified as: ${classifyData.subject}`);
+                        } else {
+                            addToLog(`⚠️ Classification failed: ${classifyData.message}`);
+                            // alert("File uploaded but auto-classification failed.");
+                        }
+                    } catch (e) {
+                        console.error(e);
+                        addToLog('❌ Classification Error.');
+                    }
                 } else {
-                    alert("Uploaded successfully!");
+                    // Manual Subject Selected
+                    // alert("Uploaded successfully!");
+                    addToLog('✅ Upload Success.');
                     // Refresh List
                     const listRes = await fetch(`/api/files?username=${user.username}`);
                     const listData = await listRes.json();
@@ -203,6 +245,12 @@ export default function FilesPage() {
             setStatusMessages(prev => [...prev, `❌ Error: ${e.message}`]);
         } finally {
             setLoading(false);
+            if (!showStatusModal) setShowStatusModal(false); // Only close if not timetable (timetable flow handles its own close/log usually, or we leave it open)
+            // Actually, for better UX let's keep modal open for a sec or let user close it if it was AI task
+            if (!isTimetable && selectedSubject) {
+                setShowStatusModal(false);
+            }
+
             setSelectedFile(null);
             const input = document.getElementById('file-upload') as HTMLInputElement;
             if (input) input.value = '';
@@ -245,6 +293,31 @@ export default function FilesPage() {
             }
         } catch (e) {
             alert('Error deleting subject');
+        }
+    };
+
+    const handleDeleteAllSubjects = async () => {
+        if (!confirm('Are you sure you want to DELETE ALL subjects? Files will remain but become uncategorized.')) return;
+
+        try {
+            const res = await fetch('/api/subjects/delete-all', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: user.username })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                setSubjects(data.subjects);
+                // Update local storage
+                const updatedUser = { ...user, subjects: data.subjects };
+                localStorage.setItem('user', JSON.stringify(updatedUser));
+                setUser(updatedUser);
+            } else {
+                alert('Failed to delete all subjects');
+            }
+        } catch (e) {
+            alert('Error deleting subjects');
         }
     };
 
@@ -394,15 +467,16 @@ export default function FilesPage() {
                             border: '1px solid var(--glass-border)',
                             padding: '10px',
                             borderRadius: '6px',
-                            background: 'white',
+                            background: 'var(--bg-tertiary)',
                             display: 'flex',
-                            alignItems: 'center'
+                            alignItems: 'center',
+                            color: 'var(--text-primary)'
                         }}>
                             <input
                                 type="file"
                                 id="file-upload"
                                 onChange={handleFileSelect}
-                                style={{ flex: 1 }}
+                                style={{ flex: 1, color: 'inherit' }}
                             />
                         </div>
 
@@ -413,14 +487,15 @@ export default function FilesPage() {
                                     onChange={(e) => setSelectedSubject(e.target.value)}
                                     style={{
                                         padding: '12px', borderRadius: '6px', border: '1px solid var(--glass-border)',
-                                        background: 'white', color: 'var(--text-primary)', flex: 1
+                                        background: 'var(--bg-tertiary)', color: 'var(--text-primary)', flex: 1
                                     }}
                                 >
-                                    {subjects.length > 0 ? subjects.map(s => <option key={s} value={s}>{s}</option>) : <option value="">No subjects found</option>}
-                                    <option value="">-- General / Auto-Detect --</option>
+                                    {subjects.length > 0 ? subjects.map(s => <option key={s} value={s} style={{ background: '#333' }}>{s}</option>) : <option value="" style={{ background: '#333' }}>No subjects found</option>}
+                                    <option value="" style={{ background: '#333' }}>-- General / Auto-Detect --</option>
                                 </select>
                             </div>
                         )}
+
 
                         <button
                             onClick={handleUploadAndParse}
@@ -445,7 +520,7 @@ export default function FilesPage() {
                             ) : (
                                 <>
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                                    {uploadType === 'timetable' ? 'Parse Timetable' : 'Upload Resource'}
+                                    {uploadType === 'timetable' ? 'Parse Timetable' : 'Classify with AI'}
                                 </>
                             )}
                         </button>
@@ -456,7 +531,21 @@ export default function FilesPage() {
             {/* FOLDERS GRID (Only at Root) */}
             {!currentFolder && subjects.length > 0 && (
                 <>
-                    <h2 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '16px', color: 'var(--text-primary)' }}>Subjects</h2>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                        <h2 style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--text-primary)', margin: 0 }}>Subjects</h2>
+                        <button
+                            onClick={handleDeleteAllSubjects}
+                            style={{
+                                fontSize: '12px', color: 'var(--error)', background: 'transparent',
+                                border: '1px solid var(--error)', borderRadius: '6px', padding: '6px 12px',
+                                cursor: 'pointer', transition: 'all 0.2s', opacity: 0.8
+                            }}
+                            onMouseEnter={e => e.currentTarget.style.opacity = '1'}
+                            onMouseLeave={e => e.currentTarget.style.opacity = '0.8'}
+                        >
+                            Delete All
+                        </button>
+                    </div>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px', marginBottom: '32px' }}>
                         {subjects.map(subject => {
                             const count = files.filter(f => f.subject === subject).length;

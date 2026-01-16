@@ -35,7 +35,8 @@ export async function POST(request: Request) {
         let base64Data = '';
         try {
             const buffer = await readFile(filePath);
-            const ext = filePath.split('.').pop() || 'jpeg';
+            let ext = (filePath.split('.').pop() || 'jpeg').toLowerCase();
+            if (ext === 'jpg') ext = 'jpeg';
             const mimeType = ext === 'pdf' ? 'application/pdf' : `image/${ext}`;
             base64Data = `data:${mimeType};base64,${buffer.toString('base64')}`;
         } catch (e) {

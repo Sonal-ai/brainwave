@@ -18,7 +18,6 @@ export default function TimetablePage() {
     const router = useRouter();
     const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
     const [user, setUser] = useState<any>(null);
-    const [schedule, setSchedule] = useState<ClassSession[]>([]);
 
     useEffect(() => {
         if (isLoading) return;
@@ -51,6 +50,7 @@ export default function TimetablePage() {
 
     // Flatten and Group by Day
     const groupedSchedule: Record<string, ClassSession[]> = {};
+    let totalClasses = 0;
 
     // Initialize days
     DAYS.forEach(day => groupedSchedule[day] = []);
@@ -71,6 +71,7 @@ export default function TimetablePage() {
                             subject: subj.name,
                             location: cls.location || 'TBA'
                         });
+                        totalClasses++;
                     }
                 });
             }
@@ -116,7 +117,7 @@ export default function TimetablePage() {
             }}>
                 <h2 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '24px' }}>Your Weekly Schedule</h2>
 
-                {schedule.length === 0 ? (
+                {totalClasses === 0 ? (
                     <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
                         No classes found. Upload a timetable to get started.
                     </div>
