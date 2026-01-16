@@ -7,13 +7,53 @@ import { useAuth0 } from '@auth0/auth0-react';
 export default function ExamsPage() {
     const { user } = useAuth0();
     const router = useRouter();
-    const EXAMS = [
+    const [exams, setExams] = useState<any[]>([]);
+
+    const STATIC_EXAMS = [
         { id: 1, subject: "MATHEMATICS-I", date: "2026-02-15", time: "10:00 AM", type: "Mid-Term", location: "Exam Hall A" },
         { id: 2, subject: "PROGRAMMING FUNDAMENTALS", date: "2026-02-17", time: "02:00 PM", type: "Mid-Term", location: "Lab 3" },
         { id: 3, subject: "WEB DESIGNING", date: "2026-02-20", time: "10:00 AM", type: "Mid-Term", location: "CS Block" },
         { id: 4, subject: "BASIC ELECTRONICS & COMMUNICATION ENG.", date: "2026-02-22", time: "02:00 PM", type: "Mid-Term", location: "Exam Hall B" },
         { id: 5, subject: "COMPUTER AIDED ENGINEERING GRAPHICS-2", date: "2026-02-24", time: "10:00 AM", type: "Mid-Term", location: "Design Lab" },
     ];
+
+    useEffect(() => {
+        if (user?.email) {
+            fetch('/api/auth/sync', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: user.email, name: user.name })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    const userSubjects = data.user?.subjects || [];
+                    const currentExams = [...STATIC_EXAMS];
+                    let nextId = 100;
+
+                    userSubjects.forEach((subj: string) => {
+                        const exists = currentExams.some(e => e.subject.toLowerCase() === subj.toLowerCase());
+                        if (!exists) {
+                            currentExams.push({
+                                id: nextId++,
+                                subject: subj,
+                                date: new Date().toISOString(),
+                                time: "TBD",
+                                type: "Unscheduled",
+                                location: "TBD"
+                            });
+                        }
+                    });
+
+                    setExams(currentExams.sort((a, b) => a.type === 'Unscheduled' ? 1 : -1));
+                })
+                .catch(e => {
+                    console.error("Sync error", e);
+                    setExams(STATIC_EXAMS);
+                });
+        } else {
+            setExams(STATIC_EXAMS);
+        }
+    }, [user]);
 
     // CGPA State
     const [sgpas, setSgpas] = useState<Record<string, string>>({

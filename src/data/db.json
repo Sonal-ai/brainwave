@@ -269,7 +269,19 @@
         "DBMS Lab[CS210] G2",
         "DBMS Lab G1",
         "CN Lab",
-        "DBMS Lab"
+        "DBMS Lab",
+        "CS104",
+        "CS102",
+        "AM102",
+        "SEC-1 (CS-106)",
+        "AEC/VAC",
+        "AP102",
+        "MATHEMATICS-II",
+        "PHYSICS",
+        "DISCRETE STRUCTURE",
+        "DATA STRUCTURES",
+        "BASICS OF MACHINE LEARNING AND APPLICATIONS",
+        "AS SELECTED"
       ],
       "files": [
         {
@@ -461,6 +473,36 @@
           "uploadDate": "2026-01-16T22:11:16.332Z",
           "mediaId": "/uploads/1768601476325-newtimetable.jpeg",
           "parsed": true
+        },
+        {
+          "id": "69a9b36f-21a4-4a75-a33e-464cb939a387",
+          "name": "newtimetable.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T22:23:48.413Z",
+          "mediaId": "/uploads/1768602228406-newtimetable.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "59f898ff-371e-496b-97e0-ef06768a91b7",
+          "name": "newtimetable.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T22:27:25.337Z",
+          "mediaId": "/uploads/1768602445330-newtimetable.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "bc68e762-bdf8-4b0a-9464-cf2e60cc20da",
+          "name": "newtimetable.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T22:30:42.867Z",
+          "mediaId": "/uploads/1768602642861-newtimetable.jpeg",
+          "parsed": true
         }
       ],
       "timetable": {
@@ -470,101 +512,24 @@
             "classes": [
               {
                 "day": "MON",
-                "start_time": "15:00",
-                "end_time": "16:00",
-                "location": "PB-GF5 G1/G2"
+                "start_time": "15-00",
+                "end_time": "16-00",
+                "location": "PB-GF5, G1/G2",
+                "subject": "AM102(T)"
               },
               {
                 "day": "TUE",
-                "start_time": "12:00",
-                "end_time": "13:00",
-                "location": "PBGF-6"
+                "start_time": "12-00",
+                "end_time": "13-00",
+                "location": "PBGF-6",
+                "subject": "AM102(L)"
               },
               {
                 "day": "WED",
-                "start_time": "08:00",
-                "end_time": "09:00",
-                "location": "PBGF-6"
-              }
-            ]
-          },
-          {
-            "name": "DISCRETE STRUCTURE",
-            "classes": [
-              {
-                "day": "MON",
-                "start_time": "11:00",
-                "end_time": "12:00",
-                "location": "PBGF-6"
-              },
-              {
-                "day": "WED",
-                "start_time": "15:00",
-                "end_time": "16:00",
-                "location": "PBGF-6"
-              },
-              {
-                "day": "THU",
-                "start_time": "11:00",
-                "end_time": "12:00",
-                "location": "PBGF-6"
-              }
-            ]
-          },
-          {
-            "name": "DATA STRUCTURES",
-            "classes": [
-              {
-                "day": "MON",
-                "start_time": "10:00",
-                "end_time": "11:00",
-                "location": "PBGF-6"
-              },
-              {
-                "day": "WED",
-                "start_time": "10:00",
-                "end_time": "11:00",
-                "location": "PBGF-6"
-              },
-              {
-                "day": "THU",
-                "start_time": "14:00",
-                "end_time": "16:00",
-                "location": "CS104 Lab"
-              }
-            ]
-          },
-          {
-            "name": "BASICS OF MACHINE LEARNING AND APPLICATIONS",
-            "classes": [
-              {
-                "day": "MON",
-                "start_time": "16:00",
-                "end_time": "18:00",
-                "location": "CS106 Lab"
-              },
-              {
-                "day": "TUE",
-                "start_time": "14:00",
-                "end_time": "15:00",
-                "location": "PBGF-6"
-              }
-            ]
-          },
-          {
-            "name": "AS SELECTED",
-            "classes": [
-              {
-                "day": "TUE",
-                "start_time": "08:00",
-                "end_time": "10:00",
-                "location": ""
-              },
-              {
-                "day": "THU",
-                "start_time": "08:00",
-                "end_time": "10:00",
-                "location": ""
+                "start_time": "09-00",
+                "end_time": "10-00",
+                "location": "PBGF-6",
+                "subject": "AM102(L)"
               }
             ]
           },
@@ -573,21 +538,114 @@
             "classes": [
               {
                 "day": "WED",
-                "start_time": "11:00",
-                "end_time": "12:00",
-                "location": "PBGF-6"
+                "start_time": "12-00",
+                "end_time": "13-00",
+                "location": "PBGF-6",
+                "subject": "AP102(L)"
               },
               {
                 "day": "FRI",
-                "start_time": "12:00",
-                "end_time": "13:00",
-                "location": "PBGF-6"
+                "start_time": "12-00",
+                "end_time": "13-00",
+                "location": "PBGF-6",
+                "subject": "AP102(L)"
               },
               {
                 "day": "FRI",
-                "start_time": "13:00",
-                "end_time": "15:00",
-                "location": "AP102 Lab"
+                "start_time": "14-00",
+                "end_time": "16-00",
+                "location": "LAB",
+                "subject": "AP102(P) LAB"
+              }
+            ]
+          },
+          {
+            "name": "DISCRETE STRUCTURE",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "12-00",
+                "end_time": "13-00",
+                "location": "PBGF-6",
+                "subject": "CS102(L)"
+              },
+              {
+                "day": "WED",
+                "start_time": "15-00",
+                "end_time": "16-00",
+                "location": "PBGF-6",
+                "subject": "CS102(L)"
+              },
+              {
+                "day": "THU",
+                "start_time": "11-00",
+                "end_time": "12-00",
+                "location": "PBGF-6",
+                "subject": "CS102(L+T)"
+              }
+            ]
+          },
+          {
+            "name": "DATA STRUCTURES",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "11-00",
+                "end_time": "12-00",
+                "location": "PBGF-6",
+                "subject": "CS104(L)"
+              },
+              {
+                "day": "WED",
+                "start_time": "10-00",
+                "end_time": "11-00",
+                "location": "PBGF-6",
+                "subject": "CS104(L)"
+              },
+              {
+                "day": "THU",
+                "start_time": "14-00",
+                "end_time": "16-00",
+                "location": "CS104 lab",
+                "subject": "CS104 lab"
+              }
+            ]
+          },
+          {
+            "name": "BASICS OF MACHINE LEARNING AND APPLICATIONS",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "16-00",
+                "end_time": "18-00",
+                "location": "CS106 lab",
+                "subject": "CS106 lab"
+              },
+              {
+                "day": "TUE",
+                "start_time": "14-00",
+                "end_time": "15-00",
+                "location": "PBGF-6",
+                "subject": "SEC-1 (CS106)"
+              }
+            ]
+          },
+          {
+            "name": "AS SELECTED",
+            "classes": [
+              {
+                "day": "TUE",
+                "start_time": "08-00",
+                "end_time": "10-00",
+                "location": "",
+                "subject": "AEC/VAC"
+              },
+              {
+                "day": "THU",
+                "start_time": "08-00",
+                "end_time": "10-00",
+                "location": "",
+                "subject": "AEC/VAC"
               }
             ]
           }
