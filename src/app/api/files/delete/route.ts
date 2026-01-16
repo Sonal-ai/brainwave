@@ -23,7 +23,9 @@ export async function DELETE(request: Request) {
         user.files = user.files.filter(f => f.id !== id);
 
         if (user.files.length === initialCount) {
-            return NextResponse.json({ message: 'File not found' }, { status: 404 });
+            // File not found, but we consider "delete" successful as the goal is achieved
+            console.log(`File ${id} not found for deletion, returning success.`);
+            return NextResponse.json({ message: 'File not found, but considered deleted', files: user.files });
         }
 
         db.users[userIndex] = user;

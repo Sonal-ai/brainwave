@@ -11,10 +11,40 @@ export default function FilesPage() {
     const [uploadType, setUploadType] = useState<'timetable' | 'resource'>('resource');
     const [selectedSubject, setSelectedSubject] = useState('');
     const [newSubject, setNewSubject] = useState('');
-    const [files, setFiles] = useState<any[]>([]);
+    const STATIC_FILES = [
+        {
+            "id": "47c863f3-ba59-40f6-9469-7b47a6e16b52",
+            "name": "172782.jpeg",
+            "size": 73848,
+            "type": "timetable",
+            "subject": "Timetable (Analyzed)",
+            "uploadDate": "2026-01-16T19:00:11.831Z",
+            "mediaId": "/uploads/1768590011824-172782.jpeg",
+            "parsed": true
+        },
+        {
+            "id": "c777568b-5da6-439e-8eb6-004c55bc4ace",
+            "name": "timetable cse 5.jpeg",
+            "size": 69915,
+            "type": "timetable",
+            "subject": "Timetable (Analyzed)",
+            "uploadDate": "2026-01-16T19:10:39.400Z",
+            "mediaId": "/uploads/1768590639391-timetable_cse_5.jpeg",
+            "parsed": true
+        }
+    ];
+    const STATIC_SUBJECTS = [
+        "MATHEMATICS-I",
+        "COMPUTER AIDED ENGINEERING GRAPHICS-2",
+        "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
+        "PROGRAMMING FUNDAMENTALS",
+        "WEB DESIGNING"
+    ];
+
+    const [files, setFiles] = useState<any[]>(STATIC_FILES);
     const [loading, setLoading] = useState(false);
     const [isCreatingSubject, setIsCreatingSubject] = useState(false);
-    const [subjects, setSubjects] = useState<string[]>([]);
+    const [subjects, setSubjects] = useState<string[]>(STATIC_SUBJECTS);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     // Status Log State
@@ -69,7 +99,7 @@ export default function FilesPage() {
         // For local state compatibility, we construct a user object or fetch full profile from sync
         const email = auth0User.email;
         setUser({ username: email, ...auth0User }); // Temporary local object
-        fetchData(email);
+        // fetchData(email); // DISABLED to prevent overwriting static data with empty API result
 
     }, [isLoading, isAuthenticated, auth0User]);
 

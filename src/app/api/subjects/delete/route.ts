@@ -22,12 +22,8 @@ export async function POST(request: Request) {
         // Remove subject from list
         user.subjects = user.subjects.filter(s => s !== subject);
 
-        // Note: Files tagged with this subject will essentially become "Uncategorized"
-        // purely by virtue of the subject no longer being in the list used for filtering folders.
-        // We can optionally explicitly set file.subject = null, but it's not strictly necessary 
-        // if the UI just checks "if subject in user.subjects". 
-        // However, for cleanliness, let's keep the file.subject as is—it acts as a "tag" even if the folder is gone. 
-        // If the user re-creates the subject, the files reappear. This is a nice feature.
+        // Universal Delete: Remove files associated with this subject
+        user.files = user.files.filter(f => f.subject !== subject);
 
         db.users[userIndex] = user;
         saveDb(db);

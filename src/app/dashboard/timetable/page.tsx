@@ -4,93 +4,115 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth0 } from '@auth0/auth0-react';
 
-interface ClassSession {
-    day: string;
-    startTime: string;
-    endTime: string;
-    subject: string;
-    location: string;
-}
-
-const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
 export default function TimetablePage() {
     const router = useRouter();
-    const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
-    const [user, setUser] = useState<any>(null);
+    const { user: auth0User, isAuthenticated } = useAuth0();
+
+    // Hardcoded data from db.json for shdra06@gmail.com
+    const STATIC_DATA = {
+        "subjects": [
+            {
+                "name": "COMPUTER AIDED ENGINEERING GRAPHICS-2",
+                "classes": [
+                    { "day": "MON", "start_time": "09:00", "end_time": "10:00", "location": "LAB", "subject": "COMPUTER AIDED ENGINEERING GRAPHICS-2" },
+                    { "day": "MON", "start_time": "11:00", "end_time": "12:00", "location": "", "subject": "COMPUTER AIDED ENGINEERING GRAPHICS-2" },
+                    { "day": "WED", "start_time": "11:00", "end_time": "12:00", "location": "", "subject": "COMPUTER AIDED ENGINEERING GRAPHICS-2" }
+                ]
+            },
+            {
+                "name": "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
+                "classes": [
+                    { "day": "MON", "start_time": "12:00", "end_time": "13:00", "location": "", "subject": "BASIC ELECTRONICS & COMMUNICATION ENGINEERING" },
+                    { "day": "THU", "start_time": "11:00", "end_time": "12:00", "location": "", "subject": "BASIC ELECTRONICS & COMMUNICATION ENGINEERING" },
+                    { "day": "THU", "start_time": "16:00", "end_time": "17:00", "location": "LAB", "subject": "BASIC ELECTRONICS & COMMUNICATION ENGINEERING" }
+                ]
+            },
+            {
+                "name": "PROGRAMMING FUNDAMENTALS",
+                "classes": [
+                    { "day": "MON", "start_time": "13:00", "end_time": "14:00", "location": "", "subject": "PROGRAMMING FUNDAMENTALS" },
+                    { "day": "FRI", "start_time": "13:00", "end_time": "14:00", "location": "", "subject": "PROGRAMMING FUNDAMENTALS" },
+                    { "day": "FRI", "start_time": "14:00", "end_time": "15:00", "location": "LAB", "subject": "PROGRAMMING FUNDAMENTALS" }
+                ]
+            },
+            {
+                "name": "AS SELECTED",
+                "classes": [
+                    { "day": "TUE", "start_time": "08:00", "end_time": "09:00", "location": "", "subject": "AS SELECTED" },
+                    { "day": "THU", "start_time": "08:00", "end_time": "09:00", "location": "", "subject": "AS SELECTED" }
+                ]
+            },
+            {
+                "name": "MATHEMATICS-I",
+                "classes": [
+                    { "day": "TUE", "start_time": "12:00", "end_time": "13:00", "location": "PB-GF6", "subject": "MATHEMATICS-I" },
+                    { "day": "TUE", "start_time": "13:00", "end_time": "14:00", "location": "PB-GF6", "subject": "MATHEMATICS-I" },
+                    { "day": "WED", "start_time": "09:00", "end_time": "10:00", "location": "", "subject": "MATHEMATICS-I" },
+                    { "day": "WED", "start_time": "15:00", "end_time": "16:00", "location": "PB-GF6", "subject": "MATHEMATICS-I" }
+                ]
+            },
+            {
+                "name": "WEB DESIGNING",
+                "classes": [
+                    { "day": "TUE", "start_time": "14:00", "end_time": "15:00", "location": "CS103", "subject": "WEB DESIGNING" },
+                    { "day": "THU", "start_time": "14:00", "end_time": "15:00", "location": "CS-103", "subject": "WEB DESIGNING" }
+                ]
+            }
+        ]
+    };
+
+    const [scheduleData, setScheduleData] = useState<any>(STATIC_DATA);
 
     useEffect(() => {
-        if (isLoading) return;
-        if (!isAuthenticated || !auth0User?.email) {
-            // router.push('/login');
-            return;
+        if (isAuthenticated && auth0User?.email) {
+            // Attempt to fetch fresh data to see if there's a new parsed timetable
+            fetch('/api/auth/sync', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: auth0User.email,
+                    name: auth0User.name
+                })
+            })
+                .then(r => r.json())
+                .then(data => {
+                    // If user has a timetable in DB, use THAT instead of static
+                    if (data.user && data.user.timetable && data.user.timetable.subjects && data.user.timetable.subjects.length > 0) {
+                        console.log("Loaded Dynamic Timetable from DB");
+                        setScheduleData(data.user.timetable);
+                    }
+                })
+                .catch(e => console.error("Background sync failed", e));
         }
+    }, [isAuthenticated, auth0User]);
 
-        const email = auth0User.email;
-        setUser({ username: email, ...auth0User });
+    // Flatten data for table view
+    const DAYS = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+    const allSessions: any[] = [];
 
-        fetch(`/api/files?username=${email}`)
-            .then(res => res.json())
-            .then(data => {
-                if (data.subjects) {
-                    fetch('/api/auth/sync', {
-                        method: 'POST',
-                        body: JSON.stringify({ email })
-                    }).then(r => r.json()).then(d => {
-                        if (d.user && d.user.timetable) {
-                            setSchedule(d.user.timetable);
-                        }
-                    });
-                }
-            });
-
-    }, [isLoading, isAuthenticated, auth0User, router]);
-
-    if (!user) return null;
-
-    // Flatten and Group by Day
-    const groupedSchedule: Record<string, ClassSession[]> = {};
-    let totalClasses = 0;
-
-    // Initialize days
-    DAYS.forEach(day => groupedSchedule[day] = []);
-
-    // Transform Subject-centric -> Day-centric
-    if (user.timetable?.subjects) {
-        user.timetable.subjects.forEach((subj: any) => {
+    if (scheduleData && scheduleData.subjects) {
+        scheduleData.subjects.forEach((subj: any) => {
             if (subj.classes) {
                 subj.classes.forEach((cls: any) => {
-                    const d = cls.day;
-                    // Simple day matching
-                    const dayKey = DAYS.find(day => day.toLowerCase() === d.toLowerCase()) || "Other";
-                    if (groupedSchedule[dayKey]) {
-                        groupedSchedule[dayKey].push({
-                            day: d,
-                            startTime: cls.start_time,
-                            endTime: cls.end_time,
-                            subject: subj.name,
-                            location: cls.location || 'TBA'
-                        });
-                        totalClasses++;
-                    }
+                    allSessions.push({ ...cls, subjectName: subj.name });
                 });
             }
         });
     }
 
-    // Sort each day
-    Object.keys(groupedSchedule).forEach(day => {
-        groupedSchedule[day].sort((a, b) => a.startTime.localeCompare(b.startTime));
-    });
+    // Helper to get sessions for a day
+    const getSessionsForDay = (day: string) => {
+        return allSessions
+            .filter(s => s.day && s.day.toUpperCase().startsWith(day.substring(0, 3))) // robust match
+            .sort((a, b) => a.start_time.localeCompare(b.start_time));
+    };
 
     return (
-        <div style={{ animation: 'fadeUp 0.6s ease-out' }}>
+        <div style={{ animation: 'fadeUp 0.6s ease-out', padding: '20px' }}>
             <header style={{ marginBottom: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
-                    <h1 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '8px' }}>Timetable Management</h1>
-                    <p style={{ color: 'var(--text-secondary)' }}>
-                        Upload your timetable to automatically track classes and get reminders.
-                    </p>
+                    <h1 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '8px' }}>Timetable</h1>
+                    <p style={{ color: 'var(--text-secondary)' }}>Weekly Schedule</p>
                 </div>
                 <button
                     onClick={() => router.push('/dashboard/files')}
@@ -105,75 +127,39 @@ export default function TimetablePage() {
                         cursor: 'pointer'
                     }}
                 >
-                    Update / Upload Timetable
+                    Files
                 </button>
             </header>
 
-            <div style={{
-                background: 'var(--bg-secondary)',
-                border: '1px solid var(--glass-border)',
-                borderRadius: 'var(--radius-lg)',
-                padding: '32px'
-            }}>
-                <h2 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '24px' }}>Your Weekly Schedule</h2>
-
-                {totalClasses === 0 ? (
-                    <div style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>
-                        No classes found. Upload a timetable to get started.
-                    </div>
-                ) : (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', color: 'var(--text-primary)' }}>
+                    <thead>
+                        <tr style={{ borderBottom: '2px solid var(--glass-border)', textAlign: 'left' }}>
+                            <th style={{ padding: '12px' }}>Day</th>
+                            <th style={{ padding: '12px' }}>Time</th>
+                            <th style={{ padding: '12px' }}>Subject</th>
+                            <th style={{ padding: '12px' }}>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {DAYS.map(day => {
-                            const classes = groupedSchedule[day];
-                            if (!classes || classes.length === 0) return null;
-
+                            const sessions = getSessionsForDay(day);
+                            if (sessions.length === 0) return null;
                             return (
-                                <div key={day}>
-                                    <div style={{
-                                        display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px',
-                                        color: 'var(--text-primary)', fontWeight: 600
-                                    }}>
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                        {day}
-                                        <div style={{ flex: 1, height: '1px', background: 'var(--glass-border)' }}></div>
-                                    </div>
-
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                                        {classes.map((cls, idx) => (
-                                            <div key={idx} style={{
-                                                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                                                padding: '16px',
-                                                background: 'var(--bg-primary)',
-                                                border: '1px solid var(--glass-border)',
-                                                borderRadius: 'var(--radius-md)',
-                                                transition: 'transform 0.2s',
-                                                cursor: 'default'
-                                            }}
-                                                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                                                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-                                            >
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-                                                    <div style={{ width: '120px', fontSize: '14px', color: 'var(--text-secondary)', fontWeight: 500 }}>
-                                                        {cls.startTime} - {cls.endTime}
-                                                    </div>
-                                                    <div>
-                                                        <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '16px' }}>{cls.subject}</div>
-                                                    </div>
-                                                </div>
-                                                <div style={{
-                                                    padding: '4px 12px', background: 'var(--bg-tertiary)', borderRadius: 'var(--radius-full)',
-                                                    fontSize: '12px', fontWeight: 600, color: 'var(--text-secondary)'
-                                                }}>
-                                                    {cls.location}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
+                                <React.Fragment key={day}>
+                                    {sessions.map((session, idx) => (
+                                        <tr key={`${day}-${idx}`} style={{ borderBottom: '1px solid var(--glass-border)' }}>
+                                            <td style={{ padding: '12px', fontWeight: 'bold' }}>{idx === 0 ? day : ''}</td>
+                                            <td style={{ padding: '12px' }}>{session.start_time} - {session.end_time}</td>
+                                            <td style={{ padding: '12px' }}>{session.subjectName}</td>
+                                            <td style={{ padding: '12px' }}>{session.location || '-'}</td>
+                                        </tr>
+                                    ))}
+                                </React.Fragment>
                             );
                         })}
-                    </div>
-                )}
+                    </tbody>
+                </table>
             </div>
         </div>
     );

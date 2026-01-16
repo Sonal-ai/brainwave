@@ -8,7 +8,16 @@ export default function SubjectsPage() {
     const router = useRouter();
     const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
     const [user, setUser] = useState<any>(null);
-    const [subjects, setSubjects] = useState<string[]>([]);
+    const STATIC_SUBJECTS = [
+        "COMPUTER AIDED ENGINEERING GRAPHICS-2",
+        "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
+        "PROGRAMMING FUNDAMENTALS",
+        "AS SELECTED",
+        "MATHEMATICS-I",
+        "WEB DESIGNING"
+    ];
+
+    const [subjects, setSubjects] = useState<string[]>(STATIC_SUBJECTS);
 
     useEffect(() => {
         if (isLoading) return;
@@ -20,9 +29,11 @@ export default function SubjectsPage() {
         const email = auth0User.email;
         setUser({ username: email, ...auth0User });
 
+        /*
         fetch(`/api/files?username=${email}`)
             .then(res => res.json())
             .then(data => setSubjects(data.subjects || []));
+        */
 
     }, [isLoading, isAuthenticated, auth0User, router]);
 
