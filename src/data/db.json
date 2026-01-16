@@ -301,180 +301,153 @@
           "uploadDate": "2026-01-16T22:03:50.068Z",
           "mediaId": "/uploads/1768601030061-Tutorial_1.pdf",
           "parsed": false
+        },
+        {
+          "id": "b63113e0-ef99-4bef-b1f2-d7329d807a56",
+          "name": "172782.jpeg",
+          "size": 73848,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T22:06:17.776Z",
+          "mediaId": "/uploads/1768601177769-172782.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "94cb7b69-5ad7-4045-83d6-4fa167d01f26",
+          "name": "newtimetable.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T22:11:16.332Z",
+          "mediaId": "/uploads/1768601476325-newtimetable.jpeg",
+          "parsed": true
         }
       ],
       "timetable": {
         "subjects": [
           {
-            "name": "CN Lab",
+            "name": "MATHEMATICS-II",
             "classes": [
               {
                 "day": "MON",
-                "start_time": "10:00",
-                "end_time": "12:00",
-                "location": "IOT Lab"
+                "start_time": "15:00",
+                "end_time": "16:00",
+                "location": "PB-GF5 G1/G2"
               },
               {
                 "day": "TUE",
-                "start_time": "14:00",
-                "end_time": "16:00",
-                "location": "IOT Lab"
+                "start_time": "12:00",
+                "end_time": "13:00",
+                "location": "PBGF-6"
               },
               {
                 "day": "WED",
-                "start_time": "14:00",
-                "end_time": "17:00",
-                "location": "IOT Lab"
+                "start_time": "08:00",
+                "end_time": "09:00",
+                "location": "PBGF-6"
               }
             ]
           },
           {
-            "name": "TOC CS-204",
+            "name": "DISCRETE STRUCTURE",
             "classes": [
               {
                 "day": "MON",
-                "start_time": "13:00",
-                "end_time": "14:00",
-                "location": "AB4-106"
-              },
-              {
-                "day": "TUE",
-                "start_time": "10:00",
-                "end_time": "11:00",
-                "location": "AB4-106"
+                "start_time": "11:00",
+                "end_time": "12:00",
+                "location": "PBGF-6"
               },
               {
                 "day": "WED",
-                "start_time": "12:00",
-                "end_time": "13:00",
-                "location": "AB4-106"
+                "start_time": "15:00",
+                "end_time": "16:00",
+                "location": "PBGF-6"
               },
               {
                 "day": "THU",
-                "start_time": "13:00",
-                "end_time": "14:00",
-                "location": "AB4-416"
+                "start_time": "11:00",
+                "end_time": "12:00",
+                "location": "PBGF-6"
               }
             ]
           },
           {
-            "name": "CN CS-208",
+            "name": "DATA STRUCTURES",
             "classes": [
               {
                 "day": "MON",
-                "start_time": "14:00",
-                "end_time": "15:00",
-                "location": "AB4-106"
-              },
-              {
-                "day": "TUE",
-                "start_time": "12:00",
-                "end_time": "13:00",
-                "location": "AB4-106"
+                "start_time": "10:00",
+                "end_time": "11:00",
+                "location": "PBGF-6"
               },
               {
                 "day": "WED",
-                "start_time": "14:00",
-                "end_time": "17:00",
-                "location": "IOT Lab"
+                "start_time": "10:00",
+                "end_time": "11:00",
+                "location": "PBGF-6"
               },
               {
-                "day": "FRI",
-                "start_time": "09:00",
+                "day": "THU",
+                "start_time": "14:00",
+                "end_time": "16:00",
+                "location": "CS104 Lab"
+              }
+            ]
+          },
+          {
+            "name": "BASICS OF MACHINE LEARNING AND APPLICATIONS",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "16:00",
+                "end_time": "18:00",
+                "location": "CS106 Lab"
+              },
+              {
+                "day": "TUE",
+                "start_time": "14:00",
+                "end_time": "15:00",
+                "location": "PBGF-6"
+              }
+            ]
+          },
+          {
+            "name": "AS SELECTED",
+            "classes": [
+              {
+                "day": "TUE",
+                "start_time": "08:00",
                 "end_time": "10:00",
-                "location": "AB4-106"
-              }
-            ]
-          },
-          {
-            "name": "CSO CS-206",
-            "classes": [
-              {
-                "day": "MON",
-                "start_time": "15:00",
-                "end_time": "17:00",
-                "location": "AB4-106"
-              },
-              {
-                "day": "TUE",
-                "start_time": "11:00",
-                "end_time": "12:00",
-                "location": "AB4-106"
-              },
-              {
-                "day": "FRI",
-                "start_time": "11:00",
-                "end_time": "12:00",
-                "location": "AB4-106"
-              }
-            ]
-          },
-          {
-            "name": "P&S CS202",
-            "classes": [
-              {
-                "day": "WED",
-                "start_time": "09:00",
-                "end_time": "11:00",
-                "location": "AB4-106"
+                "location": ""
               },
               {
                 "day": "THU",
-                "start_time": "14:00",
-                "end_time": "15:00",
-                "location": "AB4-416"
-              },
-              {
-                "day": "FRI",
-                "start_time": "10:00",
-                "end_time": "11:00",
-                "location": "AB4-106"
+                "start_time": "08:00",
+                "end_time": "10:00",
+                "location": ""
               }
             ]
           },
           {
-            "name": "DBMS CS-210",
+            "name": "PHYSICS",
             "classes": [
               {
                 "day": "WED",
                 "start_time": "11:00",
                 "end_time": "12:00",
-                "location": "AB4-106"
-              },
-              {
-                "day": "THU",
-                "start_time": "15:00",
-                "end_time": "17:00",
-                "location": "AB4-416"
+                "location": "PBGF-6"
               },
               {
                 "day": "FRI",
                 "start_time": "12:00",
                 "end_time": "13:00",
-                "location": "AB4-106"
-              }
-            ]
-          },
-          {
-            "name": "DBMS Lab",
-            "classes": [
-              {
-                "day": "WED",
-                "start_time": "14:00",
-                "end_time": "17:00",
-                "location": "IOT Lab"
-              },
-              {
-                "day": "THU",
-                "start_time": "10:00",
-                "end_time": "12:00",
-                "location": "AB4-106"
+                "location": "PBGF-6"
               },
               {
                 "day": "FRI",
-                "start_time": "14:00",
-                "end_time": "16:00",
-                "location": "AB4-106"
+                "start_time": "13:00",
+                "end_time": "15:00",
+                "location": "AP102 Lab"
               }
             ]
           }

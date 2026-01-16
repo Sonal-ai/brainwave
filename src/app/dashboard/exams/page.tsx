@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function ExamsPage() {
+    const { user } = useAuth0();
     const router = useRouter();
     const EXAMS = [
         { id: 1, subject: "MATHEMATICS-I", date: "2026-02-15", time: "10:00 AM", type: "Mid-Term", location: "Exam Hall A" },
@@ -59,7 +61,7 @@ export default function ExamsPage() {
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '32px' }}>Upcoming assessments and locations.</p>
 
                 <div style={{ display: 'grid', gap: '24px' }}>
-                    {EXAMS.map(exam => (
+                    {exams.map(exam => (
                         <div key={exam.id} style={{
                             background: 'var(--bg-secondary)',
                             border: '1px solid var(--glass-border)',
