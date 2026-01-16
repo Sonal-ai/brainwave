@@ -18,6 +18,8 @@ export default function Dashboard() {
         }
     }, [isLoading, isAuthenticated, loginWithRedirect]);
 
+    const [showAdviceModal, setShowAdviceModal] = useState(false);
+
     // Fetch Advice Logic
     const fetchAdvice = async () => {
         setLoadingAdvice(true);
@@ -36,6 +38,7 @@ export default function Dashboard() {
             });
             const data = await res.json();
             setAdvice(data);
+            setShowAdviceModal(true); // Open Modal on success
         } catch (error) {
             console.error("Failed to fetch advice", error);
         } finally {
@@ -172,44 +175,72 @@ export default function Dashboard() {
                 </button>
             </header>
 
-            {/* AI Advisor Card (Full Width) */}
-            {advice && (
+            {/* AI Advisor Modal */}
+            {showAdviceModal && advice && (
                 <div style={{
-                    background: `linear-gradient(to right, ${getAdviceColor(advice.primary_advice)}20, var(--bg-secondary))`,
-                    border: `1px solid ${getAdviceColor(advice.primary_advice)}`,
-                    borderRadius: 'var(--radius-lg)',
-                    padding: '24px',
-                    marginBottom: '32px',
-                    display: 'flex', alignItems: 'center', gap: '24px',
-                    animation: 'fadeUp 0.5s ease-out'
+                    position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+                    background: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(5px)',
+                    display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000,
+                    animation: 'fadeIn 0.3s ease-out'
                 }}>
                     <div style={{
-                        background: getAdviceColor(advice.primary_advice), color: 'white',
-                        width: '60px', height: '60px', borderRadius: '50%',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px'
+                        background: 'var(--bg-secondary)',
+                        border: `1px solid ${getAdviceColor(advice.primary_advice)}`,
+                        borderRadius: '24px',
+                        padding: '40px',
+                        width: '90%', maxWidth: '600px',
+                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+                        position: 'relative',
+                        animation: 'scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
                     }}>
-                        🤖
-                    </div>
-                    <div style={{ flex: 1 }}>
-                        <div style={{ textTransform: 'uppercase', fontSize: '12px', fontWeight: 'bold', letterSpacing: '1px', color: getAdviceColor(advice.primary_advice) }}>
-                            AI Smart Advice
+                        <button
+                            onClick={() => setShowAdviceModal(false)}
+                            style={{
+                                position: 'absolute', top: '20px', right: '20px',
+                                background: 'transparent', border: 'none', color: 'var(--text-secondary)',
+                                fontSize: '24px', cursor: 'pointer'
+                            }}
+                        >
+                            ✕
+                        </button>
+
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '32px' }}>
+                            <div style={{
+                                background: getAdviceColor(advice.primary_advice), color: 'white',
+                                width: '80px', height: '80px', borderRadius: '50%',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '40px',
+                                marginBottom: '24px', boxShadow: `0 10px 20px ${getAdviceColor(advice.primary_advice)}40`
+                            }}>
+                                🤖
+                            </div>
+                            <h2 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--text-secondary)', marginBottom: '8px' }}>
+                                AI Recommendation
+                            </h2>
+                            <h3 style={{ fontSize: '32px', fontWeight: '900', color: getAdviceColor(advice.primary_advice), margin: 0 }}>
+                                {advice.primary_advice.replace(/_/g, ' ')}
+                            </h3>
                         </div>
-                        <h3 style={{ fontSize: '20px', fontWeight: 'bold', margin: '4px 0 8px' }}>
-                            {advice.primary_advice.replace(/_/g, ' ')}
-                        </h3>
-                        <p style={{ opacity: 0.9, fontSize: '14px', lineHeight: 1.5 }}>
-                            {advice.reason}
-                        </p>
+
+                        <div style={{ background: 'var(--bg-tertiary)', padding: '24px', borderRadius: '16px', marginBottom: '24px' }}>
+                            <p style={{ fontSize: '16px', lineHeight: 1.6, color: 'var(--text-primary)', margin: 0 }}>
+                                {advice.reason}
+                            </p>
+                        </div>
+
                         {advice.next_steps?.length > 0 && (
-                            <div style={{ marginTop: '12px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                                {advice.next_steps.map((step: string, i: number) => (
-                                    <span key={i} style={{
-                                        background: 'var(--bg-tertiary)', padding: '4px 12px',
-                                        borderRadius: '12px', fontSize: '12px', border: '1px solid var(--glass-border)'
-                                    }}>
-                                        {step}
-                                    </span>
-                                ))}
+                            <div>
+                                <h4 style={{ fontSize: '14px', fontWeight: 'bold', color: 'var(--text-secondary)', marginBottom: '12px' }}>SUGGESTED ACTIONS</h4>
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                                    {advice.next_steps.map((step: string, i: number) => (
+                                        <div key={i} style={{
+                                            background: 'var(--bg-primary)', padding: '12px 20px',
+                                            borderRadius: '12px', fontSize: '14px', border: '1px solid var(--glass-border)',
+                                            display: 'flex', alignItems: 'center', gap: '8px'
+                                        }}>
+                                            <span style={{ color: 'var(--accent-primary)' }}>•</span> {step}
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         )}
                     </div>
