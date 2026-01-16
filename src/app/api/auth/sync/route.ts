@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { findUser, createUser } from '@/lib/db';
+import { STATIC_SUBJECTS } from '@/lib/constants';
 
 export async function POST(request: Request) {
     try {
@@ -19,7 +20,7 @@ export async function POST(request: Request) {
                 username: email, // Treating email as username for legacy compatibility
                 password: '', // Not used for Auth0 users
                 name: name || email.split('@')[0],
-                subjects: [],
+                subjects: STATIC_SUBJECTS,
                 files: []
             });
         }

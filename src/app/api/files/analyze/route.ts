@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import { getDb, saveDb } from '@/lib/db';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-import { analyzeTimetable } from '@/ai/flows/timetable-analysis';
-import fs from 'fs';
+import { parseTimetable } from '@/ai/flows/timetable-parsing';
+import { STATIC_SUBJECTS } from '@/lib/constants';
 
 export async function POST(req: Request) {
     try {
@@ -42,8 +42,51 @@ export async function POST(req: Request) {
         if (result.subjects) {
             user.subjects = [...new Set([...user.subjects, ...result.subjects])];
         }
-        if (result.schedule) {
-            user.timetable = result.schedule;
+
+        // 2. Run Genkit Flow
+        console.log("Starting Genkit Analysis...");
+        try {
+            const result = await parseTimetable({ fileDataUri: base64Data }); // Call the flow directly
+
+            if (result && result.subjects) {
+                // Update User
+                user.timetable = result;
+
+                const extractedSubjects = result.subjects.map((s: any) => s.name);
+
+                // Logic to REPLACE the static subjects if they are the only ones present
+                const currentSubjects = user.subjects || [];
+                const isOnlyStatic = currentSubjects.length === STATIC_SUBJECTS.length &&
+                    currentSubjects.every(val => STATIC_SUBJECTS.includes(val));
+
+                if (isOnlyStatic) {
+                    user.subjects = extractedSubjects;
+                } else {
+                    user.subjects = Array.from(new Set([...currentSubjects, ...extractedSubjects]));
+                }
+
+                // Update File Status
+                user.files[fileIndex].subject = 'Timetable (Analyzed)';
+                user.files[fileIndex].parsed = true;
+
+                db.users[userIndex] = user;
+                saveDb(db);
+
+                return NextResponse.json({
+                    success: true,
+                    subjects: extractedSubjects,
+                    schedule: result
+                });
+            } else {
+                throw new Error("Empty result from Genkit");
+            }
+
+        } catch (genkitError: any) {
+            console.error("Genkit Error:", genkitError);
+            return NextResponse.json({
+                success: false,
+                message: `AI Analysis Failed: ${genkitError.message || 'Unknown error'}. Did you set GEMINI_API_KEY?`
+            }, { status: 500 });
         }
 
         fileRecord.parsed = true;

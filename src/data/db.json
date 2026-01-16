@@ -5,94 +5,28 @@
       "username": "user 1",
       "password": "12345",
       "name": "Test Student",
-      "files": []
-    },
-    {
-      "id": "e701baa1-9c4a-4676-b0ae-93f3deb9bd18",
-      "username": "shdra",
-      "password": "12345",
-      "name": "shivendra",
-      "files": [],
-      "subjects": [],
-      "timetable": {
-        "subjects": []
-      }
-    },
-    {
-      "id": "a6cb73ba-f32a-414b-99de-d17b753bcddd",
-      "username": "fbberf;qwef;buieewrfu;bjqiqerfbujik;rfeqbuji;",
-      "password": "befuofbujiwrfqbuijnoqewfbuji;wefqbjn;",
-      "name": "uwfbewufbewfbuiewfui;bjewfq;ibu",
       "subjects": [],
       "files": []
     },
     {
-      "id": "08e50cbf-635c-43e6-976e-53b653581623",
-      "username": "obuiybioboui",
-      "password": "un90hbi",
-      "name": "houi",
-      "subjects": [],
-      "files": []
-    },
-    {
-      "id": "1296526c-6428-491b-a8cf-d7e22952fb5f",
-      "username": "ervvrearve3",
-      "password": "ervervqgegrqvw3ce",
-      "name": "DECECC",
-      "subjects": [],
-      "files": []
-    },
-    {
-      "id": "591b770f-c5bc-4fd3-bac0-2e2a93711720",
-      "username": "ervvrearvg5g5g5",
-      "password": "ervervqgegrqvw5gg5g",
-      "name": "g55gg5g5",
-      "subjects": [],
-      "files": []
-    },
-    {
-      "id": "5acc193d-c253-450a-a7c0-e916968f01bf",
-      "username": "ervvrearvgwrnefbniomniogrijnkbegrniu",
-      "password": "ervervqgegrqvwwgrnoegtrnioegtriojnniog",
-      "name": "engrjbegrbhjkigrhujkregfvhijknu",
-      "subjects": [],
-      "files": []
-    },
-    {
-      "id": "e7695ec1-c350-4fe4-8402-ededad2d16dd",
-      "username": "sidharthbharti463@gmail.com",
-      "password": "",
-      "name": "Sidharth Bharti",
-      "subjects": [],
-      "files": [
-        {
-          "id": "2dd88abd-e6e3-4511-9251-46772eb851da",
-          "name": "OIP.webp",
-          "size": 16918,
-          "type": "resource",
-          "subject": "Pending Analysis",
-          "uploadDate": "2026-01-16T15:32:06.131Z",
-          "mediaId": "/uploads/1768577526124-OIP.webp",
-          "parsed": false
-        },
-        {
-          "id": "9a7c9e6e-1236-42cd-a98d-aa195ac0edd6",
-          "name": "WhatsApp Image 2026-01-16 at 11.40.40 AM.jpeg",
-          "size": 69915,
-          "type": "resource",
-          "subject": "Pending Analysis",
-          "uploadDate": "2026-01-16T15:33:10.536Z",
-          "mediaId": "/uploads/1768577590530-WhatsApp_Image_2026-01-16_at_11.40.40_AM.jpeg",
-          "parsed": false
-        }
-      ]
-    },
-    {
-      "id": "2dec185c-49b1-41ed-8c5f-619358f9a721",
+      "id": "7fd0bd59-40bc-4ebb-8ebe-fe41238c456d",
       "username": "lolludo44@gmail.com",
       "password": "",
       "name": "Sidharth Bharti",
-      "subjects": [],
+      "subjects": [
+        "MATHEMATICS-I",
+        "PROGRAMMING FUNDAMENTALS",
+        "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
+        "COMPUTER AIDED ENGINEERING GRAPHICS-2",
+        "WEB DESIGNING",
+        "AS SELECTED",
+        "DATA STRUCTURES",
+        "DISCRETE STRUCTURE",
+        "MATHEMATICS-II",
+        "BASICS OF MACHINE LEARNING AND APPLICATIONS",
+        "PHYSICS",
+        "Zero hour"
+      ],
       "files": [
         {
           "id": "aa4ceb58-c8e2-4b11-8992-5333413257c8",
@@ -103,8 +37,214 @@
           "uploadDate": "2026-01-16T15:56:31.552Z",
           "mediaId": "/uploads/1768578991546-WhatsApp_Image_2026-01-16_at_11.40.40_AM.jpeg",
           "parsed": false
+        },
+        {
+          "id": "2491ca59-7d74-4dc5-9ac2-2745f9b2d3f1",
+          "name": "WhatsApp Image 2026-01-16 at 11.40.40 AM.jpeg",
+          "size": 69915,
+          "type": "resource",
+          "subject": "University Time Table",
+          "uploadDate": "2026-01-16T20:46:11.298Z",
+          "mediaId": "/uploads/1768596371294-WhatsApp_Image_2026-01-16_at_11.40.40_AM.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "e0083eee-3ebb-49cd-9afd-60b065be0bc6",
+          "name": "WhatsApp Image 2026-01-16 at 11.40.40 AM.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T20:46:33.005Z",
+          "mediaId": "/uploads/1768596393002-WhatsApp_Image_2026-01-16_at_11.40.40_AM.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "4a9eac2d-0929-489c-9728-89804e90dd82",
+          "name": "WhatsApp Image 2026-01-16 at 11.38.57 AM.jpeg",
+          "size": 128429,
+          "type": "resource",
+          "subject": "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
+          "uploadDate": "2026-01-16T20:47:12.551Z",
+          "mediaId": "/uploads/1768596432539-WhatsApp_Image_2026-01-16_at_11.38.57_AM.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "ddc26ad7-cb82-4bf5-960d-981121456f61",
+          "name": "WhatsApp Image 2026-01-16 at 11.40.40 AM.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T21:41:04.313Z",
+          "mediaId": "/uploads/1768599664307-WhatsApp_Image_2026-01-16_at_11.40.40_AM.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "9714936c-86e2-4785-ada5-b99e9885322d",
+          "name": "WhatsApp Image 2026-01-17 at 3.13.01 AM.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T21:43:23.931Z",
+          "mediaId": "/uploads/1768599803929-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "f883cf28-84f0-472d-afe8-5cc3f2c028b7",
+          "name": "WhatsApp Image 2026-01-17 at 3.13.01 AM.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T21:43:58.879Z",
+          "mediaId": "/uploads/1768599838877-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
+          "parsed": true
         }
-      ]
+      ],
+      "timetable": {
+        "subjects": [
+          {
+            "name": "MATHEMATICS-II",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "15-00",
+                "end_time": "16-00",
+                "location": "PB-GF5 G1/G2",
+                "subject": "AM102"
+              },
+              {
+                "day": "TUE",
+                "start_time": "12-00",
+                "end_time": "13-00",
+                "location": "PBGF-6",
+                "subject": "AM102"
+              },
+              {
+                "day": "WED",
+                "start_time": "09-00",
+                "end_time": "10-00",
+                "location": "PBGF-6",
+                "subject": "AM102"
+              }
+            ]
+          },
+          {
+            "name": "PHYSICS",
+            "classes": [
+              {
+                "day": "WED",
+                "start_time": "11-00",
+                "end_time": "12-00",
+                "location": "PBGF-6",
+                "subject": "AP102"
+              },
+              {
+                "day": "FRI",
+                "start_time": "12-00",
+                "end_time": "13-00",
+                "location": "PBGF-6",
+                "subject": "AP102"
+              },
+              {
+                "day": "FRI",
+                "start_time": "13-00",
+                "end_time": "14-00",
+                "location": "AP102 (P) LAB",
+                "subject": "AP102"
+              }
+            ]
+          },
+          {
+            "name": "DISCRETE STRUCTURE",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "11-00",
+                "end_time": "12-00",
+                "location": "PBGF-6",
+                "subject": "CS102"
+              },
+              {
+                "day": "WED",
+                "start_time": "15-00",
+                "end_time": "16-00",
+                "location": "PBGF-6",
+                "subject": "CS102"
+              },
+              {
+                "day": "THU",
+                "start_time": "11-00",
+                "end_time": "12-00",
+                "location": "PBGF-6",
+                "subject": "CS102"
+              }
+            ]
+          },
+          {
+            "name": "DATA STRUCTURES",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "10-00",
+                "end_time": "11-00",
+                "location": "PBGF-6",
+                "subject": "CS104"
+              },
+              {
+                "day": "WED",
+                "start_time": "10-00",
+                "end_time": "11-00",
+                "location": "PBGF-6",
+                "subject": "CS104"
+              },
+              {
+                "day": "THU",
+                "start_time": "14-00",
+                "end_time": "16-00",
+                "location": "CS104 lab",
+                "subject": "CS104"
+              }
+            ]
+          },
+          {
+            "name": "BASICS OF MACHINE LEARNING AND APPLICATIONS",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "16-00",
+                "end_time": "18-00",
+                "location": "CS106 lab",
+                "subject": "SEC-1 (CS-106)"
+              },
+              {
+                "day": "TUE",
+                "start_time": "14-00",
+                "end_time": "15-00",
+                "location": "PBGF-6",
+                "subject": "SEC-1 (CS106)"
+              }
+            ]
+          },
+          {
+            "name": "AS SELECTED",
+            "classes": [
+              {
+                "day": "TUE",
+                "start_time": "08-00",
+                "end_time": "10-00",
+                "location": "",
+                "subject": "AEC/VAC"
+              },
+              {
+                "day": "THU",
+                "start_time": "08-00",
+                "end_time": "10-00",
+                "location": "",
+                "subject": "AEC/VAC"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "bce2b4e4-b338-4bc3-a224-3f1e0df405e7",
@@ -702,6 +842,178 @@
                 "end_time": "15:00",
                 "location": "AB4-106",
                 "subject": "DBMS Lab G1"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "81d74f52-779b-4529-a9c2-770c9613ce47",
+      "username": "sidharthbharti463@gmail.com",
+      "password": "",
+      "name": "Sidharth Bharti",
+      "subjects": [
+        "DATA STRUCTURES",
+        "DISCRETE STRUCTURE",
+        "MATHEMATICS-II",
+        "BASICS OF MACHINE LEARNING AND APPLICATIONS",
+        "AS SELECTED",
+        "PHYSICS"
+      ],
+      "files": [
+        {
+          "id": "244d882f-10f0-4913-8177-d966e60615bf",
+          "name": "WhatsApp Image 2026-01-17 at 3.13.01 AM.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T22:13:08.481Z",
+          "mediaId": "/uploads/1768601588479-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
+          "parsed": true
+        }
+      ],
+      "timetable": {
+        "subjects": [
+          {
+            "name": "DATA STRUCTURES",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "10:00",
+                "end_time": "11:00",
+                "location": "PBGF-6",
+                "subject": "DATA STRUCTURES"
+              },
+              {
+                "day": "WED",
+                "start_time": "10:00",
+                "end_time": "11:00",
+                "location": "PBGF-6",
+                "subject": "DATA STRUCTURES"
+              },
+              {
+                "day": "THU",
+                "start_time": "14:00",
+                "end_time": "16:00",
+                "location": "lab",
+                "subject": "DATA STRUCTURES"
+              }
+            ]
+          },
+          {
+            "name": "DISCRETE STRUCTURE",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "11:00",
+                "end_time": "12:00",
+                "location": "PBGF-6",
+                "subject": "DISCRETE STRUCTURE"
+              },
+              {
+                "day": "WED",
+                "start_time": "15:00",
+                "end_time": "16:00",
+                "location": "PBGF-6",
+                "subject": "DISCRETE STRUCTURE"
+              },
+              {
+                "day": "THU",
+                "start_time": "11:00",
+                "end_time": "12:00",
+                "location": "PBGF-6",
+                "subject": "DISCRETE STRUCTURE"
+              }
+            ]
+          },
+          {
+            "name": "MATHEMATICS-II",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "15:00",
+                "end_time": "16:00",
+                "location": "PB-GF5 G1/G2",
+                "subject": "MATHEMATICS-II"
+              },
+              {
+                "day": "TUE",
+                "start_time": "12:00",
+                "end_time": "13:00",
+                "location": "PBGF-6",
+                "subject": "MATHEMATICS-II"
+              },
+              {
+                "day": "WED",
+                "start_time": "09:00",
+                "end_time": "10:00",
+                "location": "PBGF-6",
+                "subject": "MATHEMATICS-II"
+              }
+            ]
+          },
+          {
+            "name": "BASICS OF MACHINE LEARNING AND APPLICATIONS",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "16:00",
+                "end_time": "18:00",
+                "location": "lab",
+                "subject": "BASICS OF MACHINE LEARNING AND APPLICATIONS"
+              },
+              {
+                "day": "TUE",
+                "start_time": "14:00",
+                "end_time": "15:00",
+                "location": "PBGF-6",
+                "subject": "BASICS OF MACHINE LEARNING AND APPLICATIONS"
+              }
+            ]
+          },
+          {
+            "name": "AS SELECTED",
+            "classes": [
+              {
+                "day": "TUE",
+                "start_time": "08:00",
+                "end_time": "10:00",
+                "location": "",
+                "subject": "AS SELECTED"
+              },
+              {
+                "day": "THU",
+                "start_time": "08:00",
+                "end_time": "10:00",
+                "location": "",
+                "subject": "AS SELECTED"
+              }
+            ]
+          },
+          {
+            "name": "PHYSICS",
+            "classes": [
+              {
+                "day": "WED",
+                "start_time": "12:00",
+                "end_time": "13:00",
+                "location": "PBGF-6",
+                "subject": "PHYSICS"
+              },
+              {
+                "day": "FRI",
+                "start_time": "12:00",
+                "end_time": "13:00",
+                "location": "PBGF-6",
+                "subject": "PHYSICS"
+              },
+              {
+                "day": "FRI",
+                "start_time": "13:00",
+                "end_time": "15:00",
+                "location": "LAB",
+                "subject": "PHYSICS"
               }
             ]
           }

@@ -4,18 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth0 } from '@auth0/auth0-react';
 
+import { STATIC_SUBJECTS } from '@/lib/constants';
+
 export default function SubjectsPage() {
     const router = useRouter();
     const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
     const [user, setUser] = useState<any>(null);
-    const STATIC_SUBJECTS = [
-        "COMPUTER AIDED ENGINEERING GRAPHICS-2",
-        "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
-        "PROGRAMMING FUNDAMENTALS",
-        "AS SELECTED",
-        "MATHEMATICS-I",
-        "WEB DESIGNING"
-    ];
 
     const [subjects, setSubjects] = useState<string[]>(STATIC_SUBJECTS);
 
@@ -29,11 +23,14 @@ export default function SubjectsPage() {
         const email = auth0User.email;
         setUser({ username: email, ...auth0User });
 
-        /*
-        fetch(`/api/files?username=${email}`)
+        fetch(`/api/user/profile?email=${email}`)
             .then(res => res.json())
-            .then(data => setSubjects(data.subjects || []));
-        */
+            .then(data => {
+                if (data.subjects && data.subjects.length > 0) {
+                    setSubjects(data.subjects);
+                }
+            })
+            .catch(err => console.error("Failed to fetch subjects", err));
 
     }, [isLoading, isAuthenticated, auth0User, router]);
 
