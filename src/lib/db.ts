@@ -21,8 +21,8 @@ export interface FileRecord {
     type: string;
     subject: string;
     uploadDate: string;
-    mediaId?: string;
-    parsed?: boolean;
+    mediaId?: string; // OnDemand Media ID
+    parsed?: boolean; // If analysis is complete
 }
 
 export interface DB {

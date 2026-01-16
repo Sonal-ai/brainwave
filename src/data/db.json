@@ -14,20 +14,54 @@
       "name": "shivendra",
       "files": [
         {
-          "id": "990eed0d-0c05-4ae8-a110-6dcfb4b39273",
+          "id": "727427fe-3b4e-4388-adca-3504e40674e7",
           "name": "timetable cse 5.jpeg",
           "size": 69915,
           "type": "timetable",
-          "subject": "Upload Failed",
-          "uploadDate": "2026-01-16T06:31:17.626Z"
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T09:25:56.404Z",
+          "mediaId": "/uploads/1768555556396-timetable_cse_5.jpeg",
+          "parsed": false
         },
         {
-          "id": "8c0deb90-32aa-46e5-a5ff-16ab55b43cf8",
+          "id": "68d863ff-0d70-4232-8413-86b24e99b400",
           "name": "timetable cse 5.jpeg",
           "size": 69915,
           "type": "timetable",
-          "subject": "Upload Failed",
-          "uploadDate": "2026-01-16T06:44:07.936Z"
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T09:26:51.675Z",
+          "mediaId": "/uploads/1768555611663-timetable_cse_5.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "69456d86-6940-4708-b613-651ed89615ed",
+          "name": "timetable cse 5.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T09:37:40.935Z",
+          "mediaId": "/uploads/1768556260926-timetable_cse_5.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "ebe282f9-5086-4a76-a838-bfad4dd0998d",
+          "name": "timetable cse 5.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T09:41:44.549Z",
+          "mediaId": "/uploads/1768556504542-timetable_cse_5.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "350f169c-0c88-4bf4-a7e0-9f3407e83db0",
+          "name": "timetable cse 5.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T09:44:59.352Z",
+          "mediaId": "/uploads/1768556699346-timetable_cse_5.jpeg",
+          "parsed": true
         }
       ],
       "subjects": [
@@ -39,8 +73,150 @@
         "Software Engineering",
         "Data Structures & Algorithms",
         "Computer Architecture",
-        "Discrete Mathematics"
-      ]
+        "Discrete Mathematics",
+        "MATHEMATICS-I",
+        "PROGRAMMING FUNDAMENTALS",
+        "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
+        "COMPUTER AIDED ENGINEERING GRAPHICS-2",
+        "WEB DESIGNING",
+        "AS SELECTED"
+      ],
+      "timetable": {
+        "subjects": [
+          {
+            "name": "MATHEMATICS-I",
+            "classes": [
+              {
+                "day": "TUE",
+                "start_time": "12:00",
+                "end_time": "13:00",
+                "location": "PB-GF6",
+                "subject": "Lecture"
+              },
+              {
+                "day": "TUE",
+                "start_time": "13:00",
+                "end_time": "14:00",
+                "location": "PB-GF6",
+                "subject": "Tutorial Group 1"
+              },
+              {
+                "day": "TUE",
+                "start_time": "15:00",
+                "end_time": "16:00",
+                "location": "PB-GF6",
+                "subject": "Tutorial Group 2"
+              },
+              {
+                "day": "WED",
+                "start_time": "09:00",
+                "end_time": "10:00",
+                "subject": "Lecture"
+              }
+            ]
+          },
+          {
+            "name": "PROGRAMMING FUNDAMENTALS",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "13:00",
+                "end_time": "14:00",
+                "subject": "Lecture"
+              },
+              {
+                "day": "FRI",
+                "start_time": "12:00",
+                "end_time": "13:00",
+                "subject": "Lecture"
+              },
+              {
+                "day": "FRI",
+                "start_time": "13:00",
+                "end_time": "14:00",
+                "subject": "Practical Lab"
+              }
+            ]
+          },
+          {
+            "name": "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "12:00",
+                "end_time": "13:00",
+                "subject": "Lecture"
+              },
+              {
+                "day": "THU",
+                "start_time": "11:00",
+                "end_time": "12:00",
+                "subject": "Lecture"
+              },
+              {
+                "day": "THU",
+                "start_time": "16:00",
+                "end_time": "17:00",
+                "subject": "Practical Lab"
+              }
+            ]
+          },
+          {
+            "name": "COMPUTER AIDED ENGINEERING GRAPHICS-2",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "09:00",
+                "end_time": "10:00",
+                "subject": "Practical Lab"
+              },
+              {
+                "day": "MON",
+                "start_time": "11:00",
+                "end_time": "12:00",
+                "subject": "Lecture"
+              },
+              {
+                "day": "WED",
+                "start_time": "11:00",
+                "end_time": "12:00",
+                "subject": "Lecture"
+              }
+            ]
+          },
+          {
+            "name": "WEB DESIGNING",
+            "classes": [
+              {
+                "day": "TUE",
+                "start_time": "14:00",
+                "end_time": "15:00"
+              },
+              {
+                "day": "THU",
+                "start_time": "14:00",
+                "end_time": "15:00",
+                "subject": "Programming Lab"
+              }
+            ]
+          },
+          {
+            "name": "AS SELECTED",
+            "classes": [
+              {
+                "day": "TUE",
+                "start_time": "08:00",
+                "end_time": "09:00"
+              },
+              {
+                "day": "THU",
+                "start_time": "08:00",
+                "end_time": "09:00"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

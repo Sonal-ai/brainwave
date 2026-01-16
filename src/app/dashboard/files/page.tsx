@@ -20,6 +20,41 @@ export default function FilesPage() {
     const [showStatusModal, setShowStatusModal] = useState(false);
     const addToLog = (msg: string) => setStatusLog(prev => [...prev, msg]);
 
+    // AI Status Modal State
+    const [uploadStatus, setUploadStatus] = useState<'idle' | 'uploading' | 'analyzing' | 'complete' | 'error'>('idle');
+    const [processingStep, setProcessingStep] = useState(0); // 1=Upload, 2=Analyze, 3=Done
+    const [statusMessages, setStatusMessages] = useState<string[]>([]);
+
+    const uploadToOnDemandClient = async (file: File) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        const apiKey = process.env.NEXT_PUBLIC_ONDEMAND_API_KEY;
+
+        console.log("Client Upload: Preparing...", { fileName: file.name, fileSize: file.size, apiKeyPresent: !!apiKey });
+
+        if (!apiKey) {
+            throw new Error("Missing NEXT_PUBLIC_ONDEMAND_API_KEY");
+        }
+
+        // Note: Do NOT set Content-Type header. Browser sets it with boundary automatically.
+        const res = await fetch("https://api.on-demand.io/media/v1/public/file", {
+            method: "POST",
+            headers: {
+                "apikey": apiKey
+            },
+            body: formData
+        });
+
+        if (!res.ok) {
+            const txt = await res.text();
+            console.error("Client Upload Failed Body:", txt);
+            throw new Error(txt);
+        }
+
+        const data = await res.json();
+        return data.data?.id || data.media_id || data.id;
+    };
+
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (!storedUser) {
@@ -104,23 +139,27 @@ export default function FilesPage() {
         if (uploadType === 'timetable') {
             setShowStatusModal(true);
         }
+        setUploadStatus('uploading');
+        setShowStatusModal(true);
+        setProcessingStep(1);
+        setStatusMessages(["Uploading file to server..."]);
 
-        const formData = new FormData();
-        formData.append('file', selectedFile);
-        formData.append('username', user.username);
-
-        let type = 'resource';
         const lowerName = selectedFile.name.toLowerCase();
-        if (lowerName.includes('time') || lowerName.includes('schedule') || lowerName.includes('tt') || uploadType === 'timetable') {
-            type = 'timetable';
-        }
-        formData.append('type', type);
+        const isTimetable = uploadType === 'timetable' || lowerName.includes('time') || lowerName.includes('schedule') || lowerName.includes('tt');
 
         try {
             setLoading(true);
-            addToLog(`Uploading ${selectedFile.name}...`);
 
-            const res = await fetch('/api/files/upload', { method: 'POST', body: formData });
+            // STEP 1: Upload to Server (Local Store)
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            formData.append('username', user.username);
+            formData.append('type', isTimetable ? 'timetable' : 'resource');
+
+            const res = await fetch('/api/files/upload', {
+                method: 'POST',
+                body: formData,
+            });
 
             if (!res.ok) {
                 const errText = await res.text();
@@ -132,9 +171,10 @@ export default function FilesPage() {
             if (data.file) {
                 addToLog('✅ Upload Success.');
 
-                if (type === 'timetable' && data.file.mediaId) {
+                // STEP 2: Analyze if Timetable
+                if (isTimetable) {
+                    setStatusMessages(prev => [...prev, "Analysing with Genkit (Gemini)..."]);
                     addToLog('🚀 Triggering AI Analysis...');
-                    // Automatically call analyze since user clicked "Parse"
                     await handleAnalyze(data.file.id, data.file.name);
                 } else {
                     alert("Uploaded successfully!");
@@ -149,6 +189,7 @@ export default function FilesPage() {
         } catch (e: any) {
             alert('Error: ' + e.message);
             console.error(e);
+            setStatusMessages(prev => [...prev, `❌ Error: ${e.message}`]);
         } finally {
             setLoading(false);
             setSelectedFile(null);

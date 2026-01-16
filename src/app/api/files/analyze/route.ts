@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getDb, saveDb } from '@/lib/db';
-import { analyzeTimetable } from '@/lib/ondemand';
+import { readFile } from 'fs/promises';
+import { join } from 'path';
+import { parseTimetable } from '@/ai/flows/timetable-parsing';
 
 export async function POST(request: Request) {
     try {
@@ -23,36 +25,58 @@ export async function POST(request: Request) {
         const file = user.files[fileIndex];
 
         if (!file.mediaId) {
-            return NextResponse.json({ message: 'No Media ID found for this file. Please re-upload.' }, { status: 400 });
+            return NextResponse.json({ message: 'No file data found please re-upload.' }, { status: 400 });
         }
 
-        // Trigger Analysis
-        const timetableData = await analyzeTimetable(file.mediaId);
+        // 1. Read File from Disk
+        // mediaId is now "/uploads/xyz.jpg" -> we map to filesystem
+        const filePath = join(process.cwd(), 'public', file.mediaId);
 
-        if (timetableData && timetableData.subjects) {
-            // Update User
-            user.timetable = timetableData;
+        let base64Data = '';
+        try {
+            const buffer = await readFile(filePath);
+            const ext = filePath.split('.').pop() || 'jpeg';
+            const mimeType = ext === 'pdf' ? 'application/pdf' : `image/${ext}`;
+            base64Data = `data:${mimeType};base64,${buffer.toString('base64')}`;
+        } catch (e) {
+            console.error("File Read Error:", e);
+            return NextResponse.json({ message: 'File not found on server disk.' }, { status: 404 });
+        }
 
-            const extractedSubjects = timetableData.subjects.map((s: any) => s.name);
-            user.subjects = Array.from(new Set([...(user.subjects || []), ...extractedSubjects]));
+        // 2. Run Genkit Flow
+        console.log("Starting Genkit Analysis...");
+        try {
+            const result = await parseTimetable({ fileDataUri: base64Data }); // Call the flow directly
 
-            // Update File Status
-            user.files[fileIndex].subject = 'Timetable (Analyzed)';
-            user.files[fileIndex].parsed = true;
+            if (result && result.subjects) {
+                // Update User
+                user.timetable = result;
 
-            db.users[userIndex] = user;
-            saveDb(db);
+                const extractedSubjects = result.subjects.map((s: any) => s.name);
+                user.subjects = Array.from(new Set([...(user.subjects || []), ...extractedSubjects]));
 
-            return NextResponse.json({
-                success: true,
-                subjects: extractedSubjects,
-                schedule: timetableData
-            });
-        } else {
+                // Update File Status
+                user.files[fileIndex].subject = 'Timetable (Analyzed)';
+                user.files[fileIndex].parsed = true;
+
+                db.users[userIndex] = user;
+                saveDb(db);
+
+                return NextResponse.json({
+                    success: true,
+                    subjects: extractedSubjects,
+                    schedule: result
+                });
+            } else {
+                throw new Error("Empty result from Genkit");
+            }
+
+        } catch (genkitError: any) {
+            console.error("Genkit Error:", genkitError);
             return NextResponse.json({
                 success: false,
-                message: 'AI returned empty structure. Try a clearer image.'
-            });
+                message: `AI Analysis Failed: ${genkitError.message || 'Unknown error'}. Did you set GEMINI_API_KEY?`
+            }, { status: 500 });
         }
 
     } catch (error) {
