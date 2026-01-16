@@ -2,21 +2,20 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function Dashboard() {
-    const router = useRouter();
-    const [user, setUser] = useState<any>(null);
+    const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (!storedUser) {
-            router.push('/login');
-        } else {
-            setUser(JSON.parse(storedUser));
+        if (!isLoading && !isAuthenticated) {
+            loginWithRedirect();
         }
-    }, [router]);
+    }, [isLoading, isAuthenticated, loginWithRedirect]);
 
-    if (!user) return null;
+    if (isLoading || !isAuthenticated || !user) {
+        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', color: 'var(--text-secondary)' }}>Loading...</div>;
+    }
 
     const quickStats = [
         { label: 'Current Semester', value: '6th' },

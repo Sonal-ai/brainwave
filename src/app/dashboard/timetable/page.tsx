@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth0 } from '@auth0/auth0-react';
 
 interface ClassSession {
     day: string;
@@ -15,16 +16,35 @@ const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 
 export default function TimetablePage() {
     const router = useRouter();
+    const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
     const [user, setUser] = useState<any>(null);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (!storedUser) {
-            router.push('/login');
-        } else {
-            setUser(JSON.parse(storedUser));
+        if (isLoading) return;
+        if (!isAuthenticated || !auth0User?.email) {
+            // router.push('/login');
+            return;
         }
-    }, [router]);
+
+        const email = auth0User.email;
+        setUser({ username: email, ...auth0User });
+
+        fetch(`/api/files?username=${email}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.subjects) {
+                    fetch('/api/auth/sync', {
+                        method: 'POST',
+                        body: JSON.stringify({ email })
+                    }).then(r => r.json()).then(d => {
+                        if (d.user && d.user.timetable) {
+                            setSchedule(d.user.timetable);
+                        }
+                    });
+                }
+            });
+
+    }, [isLoading, isAuthenticated, auth0User, router]);
 
     if (!user) return null;
 

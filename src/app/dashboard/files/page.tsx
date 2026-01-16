@@ -2,9 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function FilesPage() {
     const router = useRouter();
+    const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
     const [user, setUser] = useState<any>(null);
     const [uploadType, setUploadType] = useState<'timetable' | 'resource'>('resource');
     const [selectedSubject, setSelectedSubject] = useState('');
@@ -56,15 +58,20 @@ export default function FilesPage() {
     };
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (!storedUser) {
-            router.push('/login');
-        } else {
-            const u = JSON.parse(storedUser);
-            setUser(u);
-            fetchData(u.username);
+        if (isLoading) return;
+        if (!isAuthenticated || !auth0User?.email) {
+            // Optional: Redirect strictly or just show message. Auth wrapper usually handles this.
+            // router.push('/login'); 
+            return;
         }
-    }, [router]);
+
+        // Use Auth0 user data
+        // For local state compatibility, we construct a user object or fetch full profile from sync
+        const email = auth0User.email;
+        setUser({ username: email, ...auth0User }); // Temporary local object
+        fetchData(email);
+
+    }, [isLoading, isAuthenticated, auth0User]);
 
     const fetchData = async (username: string) => {
         try {
@@ -76,6 +83,9 @@ export default function FilesPage() {
                 if (data.subjects?.length > 0 && !selectedSubject) {
                     setSelectedSubject(data.subjects[0]);
                 }
+
+                // Update local user state with fetched data if needed
+                setUser((prev: any) => ({ ...prev, subjects: data.subjects || [] }));
             }
         } catch (e) {
             console.error("Failed to fetch data", e);
@@ -83,6 +93,8 @@ export default function FilesPage() {
     };
 
     const handleAnalyze = async (fileId: string, fileName: string) => {
+        if (!user?.username) return;
+
         setStatusLog([]);
         setShowStatusModal(true);
         addToLog(`Starting Analysis for ${fileName}...`);
@@ -105,11 +117,10 @@ export default function FilesPage() {
                 // Update Local State
                 const updatedUser = {
                     ...user,
-                    subjects: [...new Set([...user.subjects, ...data.subjects])],
+                    subjects: [...new Set([...(user.subjects || []), ...data.subjects])],
                     timetable: data.schedule
                 };
                 setUser(updatedUser);
-                localStorage.setItem('user', JSON.stringify(updatedUser));
                 setSubjects(updatedUser.subjects);
 
                 // Refresh List
@@ -276,7 +287,6 @@ export default function FilesPage() {
                 setSubjects(data.subjects);
                 // Update local storage
                 const updatedUser = { ...user, subjects: data.subjects };
-                localStorage.setItem('user', JSON.stringify(updatedUser));
                 setUser(updatedUser);
             } else {
                 alert('Failed to delete subject');
@@ -329,7 +339,6 @@ export default function FilesPage() {
 
                 // Update local storage user
                 const updatedUser = { ...user, subjects: data.subjects };
-                localStorage.setItem('user', JSON.stringify(updatedUser));
                 setUser(updatedUser);
             }
         } catch (e) {

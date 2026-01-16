@@ -2,8 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import styles from './Sidebar.module.css';
+import { useAuth0 } from '@auth0/auth0-react';
 
 // Simple SVG Icons
 const Icons = {
@@ -17,17 +18,10 @@ const Icons = {
 
 export default function Sidebar() {
     const pathname = usePathname();
-    const router = useRouter();
-    const [user, setUser] = React.useState<any>(null);
-
-    React.useEffect(() => {
-        const stored = localStorage.getItem('user');
-        if (stored) setUser(JSON.parse(stored));
-    }, []);
+    const { user, logout } = useAuth0();
 
     const handleLogout = () => {
-        localStorage.removeItem('user');
-        router.push('/login');
+        logout({ logoutParams: { returnTo: window.location.origin } });
     };
 
     const navItems = [
@@ -64,11 +58,11 @@ export default function Sidebar() {
 
             <div className={styles.userProfile}>
                 <div className={styles.avatar}>
-                    {user?.name?.[0] || 'U'}
+                    {user?.picture ? <img src={user.picture} alt="Avatar" style={{ width: '100%', height: '100%', borderRadius: '50%' }} /> : (user?.name?.[0] || 'U')}
                 </div>
                 <div className={styles.userInfo}>
                     <div className={styles.userName}>{user?.name || 'User'}</div>
-                    <div className={styles.userRole}>Student</div>
+                    <div className={styles.userRole}>{user?.email || 'Student'}</div>
                 </div>
                 <button onClick={handleLogout} className={styles.logoutBtn} title="Logout">
                     <div className={styles.icon}><Icons.LogOut /></div>
