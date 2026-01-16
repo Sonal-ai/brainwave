@@ -1,0 +1,54 @@
+{
+  "users": [
+    {
+      "id": "user_1",
+      "username": "user 1",
+      "password": "12345",
+      "name": "Test Student",
+      "files": []
+    },
+    {
+      "id": "e701baa1-9c4a-4676-b0ae-93f3deb9bd18",
+      "username": "shdra",
+      "password": "12345",
+      "name": "shivendra",
+      "files": [
+        {
+          "id": "f07ab093-7a83-46cf-a654-43fa26482517",
+          "name": "timetable cse 5.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "General",
+          "uploadDate": "2026-01-16T05:48:11.925Z"
+        },
+        {
+          "id": "0e79c2d9-ca46-4437-b1e7-b8395d745b1d",
+          "name": "timetable cse 5.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "General",
+          "uploadDate": "2026-01-16T05:51:12.926Z"
+        },
+        {
+          "id": "3a7ef3c1-1395-4262-a941-5e8e52576c57",
+          "name": "timetable cse 5.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "General",
+          "uploadDate": "2026-01-16T05:56:59.165Z"
+        }
+      ],
+      "subjects": [
+        "Data Structures",
+        "Algorithms",
+        "Operating Systems",
+        "Database Management",
+        "Computer Networks",
+        "Software Engineering",
+        "Data Structures & Algorithms",
+        "Computer Architecture",
+        "Discrete Mathematics"
+      ]
+    }
+  ]
+}
