@@ -48,16 +48,10 @@ export async function POST(req: Request) {
 
                 const extractedSubjects = result.subjects.map((s: any) => s.name);
 
-                // Logic to REPLACE the static subjects if they are the only ones present
-                const currentSubjects = user.subjects || [];
-                // Check if current subjects are exactly the static set (or subset)
-                const isOnlyStatic = currentSubjects.every(val => STATIC_SUBJECTS.includes(val)) || currentSubjects.length === 0;
-
-                if (isOnlyStatic && extractedSubjects.length > 0) {
-                    user.subjects = extractedSubjects; // Replace
-                } else {
-                    user.subjects = Array.from(new Set([...currentSubjects, ...extractedSubjects])); // Merge
-                }
+                console.log("Applying Strict Replace for subjects:", extractedSubjects);
+                // Strict Replace Logic (User Mode):
+                // We strictly replace the subject list with the new timetable's subjects.
+                user.subjects = extractedSubjects;
 
                 // Update File Status
                 user.files[fileIndex].subject = 'Timetable (Analyzed)';

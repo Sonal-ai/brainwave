@@ -99,7 +99,7 @@ export default function FilesPage() {
         // For local state compatibility, we construct a user object or fetch full profile from sync
         const email = auth0User.email;
         setUser({ username: email, ...auth0User }); // Temporary local object
-        // fetchData(email); // DISABLED to prevent overwriting static data with empty API result
+        fetchData(email); // Fetch latest data from DB
 
     }, [isLoading, isAuthenticated, auth0User]);
 

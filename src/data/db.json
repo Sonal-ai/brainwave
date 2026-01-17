@@ -252,35 +252,11 @@
       "password": "",
       "name": "Shivendra Prasad",
       "subjects": [
-        "MATHEMATICS-I",
-        "COMPUTER AIDED ENGINEERING GRAPHICS-2",
-        "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
-        "PROGRAMMING FUNDAMENTALS",
-        "WEB DESIGNING",
-        "CN Lab(G1)",
-        "TOC CS-204",
-        "CN CS-208",
-        "CSO CS-206",
-        "CN Lab[CS208](G2)",
-        "P&S CS202",
-        "DBMS CS-210",
-        "DBMS Lab[CS210] G3",
-        "CN Lab[CS208](G3)",
-        "DBMS Lab[CS210] G2",
-        "DBMS Lab G1",
-        "CN Lab",
-        "DBMS Lab",
-        "CS104",
-        "CS102",
-        "AM102",
-        "SEC-1 (CS-106)",
-        "AEC/VAC",
-        "AP102",
         "MATHEMATICS-II",
-        "PHYSICS",
         "DISCRETE STRUCTURE",
-        "DATA STRUCTURES",
         "BASICS OF MACHINE LEARNING AND APPLICATIONS",
+        "DATA STRUCTURES",
+        "PHYSICS",
         "AS SELECTED"
       ],
       "files": [
@@ -503,6 +479,46 @@
           "uploadDate": "2026-01-16T22:30:42.867Z",
           "mediaId": "/uploads/1768602642861-newtimetable.jpeg",
           "parsed": true
+        },
+        {
+          "id": "ee481dff-8119-4b0d-8484-a15cd0030a91",
+          "name": "newtimetable.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T22:38:08.348Z",
+          "mediaId": "/uploads/1768603088340-newtimetable.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "70009ff9-1850-4ed2-97e5-99f6664d3afc",
+          "name": "newtimetable.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Pending Analysis",
+          "uploadDate": "2026-01-16T22:40:07.004Z",
+          "mediaId": "/uploads/1768603206999-newtimetable.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "e4a8b097-e63c-4ffc-9b1d-766b63fa41ca",
+          "name": "newtimetable.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T22:46:11.008Z",
+          "mediaId": "/uploads/1768603570998-newtimetable.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "f14654bc-7fca-4004-bba9-3a9550287e28",
+          "name": "newtimetable.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T22:47:08.144Z",
+          "mediaId": "/uploads/1768603628139-newtimetable.jpeg",
+          "parsed": true
         }
       ],
       "timetable": {
@@ -511,51 +527,25 @@
             "name": "MATHEMATICS-II",
             "classes": [
               {
-                "day": "MON",
-                "start_time": "15-00",
-                "end_time": "16-00",
-                "location": "PB-GF5, G1/G2",
-                "subject": "AM102(T)"
+                "day": "Monday",
+                "start_time": "15:00",
+                "end_time": "16:00",
+                "location": "PB-GF5 G1/G2",
+                "subject": "AM102"
               },
               {
-                "day": "TUE",
-                "start_time": "12-00",
-                "end_time": "13-00",
+                "day": "Tuesday",
+                "start_time": "12:00",
+                "end_time": "13:00",
                 "location": "PBGF-6",
-                "subject": "AM102(L)"
+                "subject": "AM102"
               },
               {
-                "day": "WED",
-                "start_time": "09-00",
-                "end_time": "10-00",
+                "day": "Wednesday",
+                "start_time": "09:00",
+                "end_time": "10:00",
                 "location": "PBGF-6",
-                "subject": "AM102(L)"
-              }
-            ]
-          },
-          {
-            "name": "PHYSICS",
-            "classes": [
-              {
-                "day": "WED",
-                "start_time": "12-00",
-                "end_time": "13-00",
-                "location": "PBGF-6",
-                "subject": "AP102(L)"
-              },
-              {
-                "day": "FRI",
-                "start_time": "12-00",
-                "end_time": "13-00",
-                "location": "PBGF-6",
-                "subject": "AP102(L)"
-              },
-              {
-                "day": "FRI",
-                "start_time": "14-00",
-                "end_time": "16-00",
-                "location": "LAB",
-                "subject": "AP102(P) LAB"
+                "subject": "AM102"
               }
             ]
           },
@@ -563,51 +553,25 @@
             "name": "DISCRETE STRUCTURE",
             "classes": [
               {
-                "day": "MON",
-                "start_time": "12-00",
-                "end_time": "13-00",
+                "day": "Monday",
+                "start_time": "12:00",
+                "end_time": "13:00",
                 "location": "PBGF-6",
-                "subject": "CS102(L)"
+                "subject": "CS102"
               },
               {
-                "day": "WED",
-                "start_time": "15-00",
-                "end_time": "16-00",
+                "day": "Wednesday",
+                "start_time": "15:00",
+                "end_time": "16:00",
                 "location": "PBGF-6",
-                "subject": "CS102(L)"
+                "subject": "CS102"
               },
               {
-                "day": "THU",
-                "start_time": "11-00",
-                "end_time": "12-00",
+                "day": "Thursday",
+                "start_time": "11:00",
+                "end_time": "12:00",
                 "location": "PBGF-6",
-                "subject": "CS102(L+T)"
-              }
-            ]
-          },
-          {
-            "name": "DATA STRUCTURES",
-            "classes": [
-              {
-                "day": "MON",
-                "start_time": "11-00",
-                "end_time": "12-00",
-                "location": "PBGF-6",
-                "subject": "CS104(L)"
-              },
-              {
-                "day": "WED",
-                "start_time": "10-00",
-                "end_time": "11-00",
-                "location": "PBGF-6",
-                "subject": "CS104(L)"
-              },
-              {
-                "day": "THU",
-                "start_time": "14-00",
-                "end_time": "16-00",
-                "location": "CS104 lab",
-                "subject": "CS104 lab"
+                "subject": "CS102"
               }
             ]
           },
@@ -615,18 +579,70 @@
             "name": "BASICS OF MACHINE LEARNING AND APPLICATIONS",
             "classes": [
               {
-                "day": "MON",
-                "start_time": "16-00",
-                "end_time": "18-00",
+                "day": "Monday",
+                "start_time": "16:00",
+                "end_time": "18:00",
                 "location": "CS106 lab",
-                "subject": "CS106 lab"
+                "subject": "SEC-1 (CS-106)"
               },
               {
-                "day": "TUE",
-                "start_time": "14-00",
-                "end_time": "15-00",
+                "day": "Tuesday",
+                "start_time": "14:00",
+                "end_time": "15:00",
                 "location": "PBGF-6",
-                "subject": "SEC-1 (CS106)"
+                "subject": "SEC-1 (CS-106)"
+              }
+            ]
+          },
+          {
+            "name": "DATA STRUCTURES",
+            "classes": [
+              {
+                "day": "Monday",
+                "start_time": "11:00",
+                "end_time": "12:00",
+                "location": "PBGF-6",
+                "subject": "CS104"
+              },
+              {
+                "day": "Wednesday",
+                "start_time": "10:00",
+                "end_time": "11:00",
+                "location": "PBGF-6",
+                "subject": "CS104"
+              },
+              {
+                "day": "Thursday",
+                "start_time": "14:00",
+                "end_time": "17:00",
+                "location": "CS104 lab",
+                "subject": "CS104"
+              }
+            ]
+          },
+          {
+            "name": "PHYSICS",
+            "classes": [
+              {
+                "day": "Wednesday",
+                "start_time": "12:00",
+                "end_time": "13:00",
+                "location": "PBGF-6",
+                "subject": "AP102"
+              },
+              {
+                "day": "Friday",
+                "start_time": "12:00",
+                "end_time": "14:00",
+                "location": "PBGF-6",
+                "subject": "AP102"
+              },
+              {
+                "day": "Friday",
+                "start_time": "14:00",
+                "end_time": "17:00",
+                "location": "AP102 (P) LAB",
+                "subject": "AP102"
               }
             ]
           },
@@ -634,18 +650,30 @@
             "name": "AS SELECTED",
             "classes": [
               {
-                "day": "TUE",
-                "start_time": "08-00",
-                "end_time": "10-00",
-                "location": "",
+                "day": "Tuesday",
+                "start_time": "08:00",
+                "end_time": "10:00",
+                "location": "null",
                 "subject": "AEC/VAC"
               },
               {
-                "day": "THU",
-                "start_time": "08-00",
-                "end_time": "10-00",
-                "location": "",
+                "day": "Thursday",
+                "start_time": "08:00",
+                "end_time": "10:00",
+                "location": "null",
                 "subject": "AEC/VAC"
+              }
+            ]
+          },
+          {
+            "name": "Zero hour",
+            "classes": [
+              {
+                "day": "Wednesday",
+                "start_time": "16:00",
+                "end_time": "18:00",
+                "location": "null",
+                "subject": "Zero hour"
               }
             ]
           }
