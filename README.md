@@ -12,26 +12,49 @@ NEXUS utilizes a hybrid AI architecture, leveraging **Google Gemini** for high-p
 
 ```mermaid
 graph TD
-    User[Student] --> Dashboard[State-of-the-Art Dashboard]
-    
+    User[Student] --> Dashboard[Unified NEXUS Dashboard]
+
+    %% ---------- INGESTION LAYER ----------
     Dashboard --> |Upload Timetable| Gemini[Gemini 1.5 Pro Agent]
     Gemini --> |Extracts| Subjects[Subjects List]
     Gemini --> |Extracts| Schedule[Class Schedule]
-    
+
     Dashboard --> |Upload Notes| Classifier[Genkit Classification Agent]
-    Classifier --> |Checks Subjects| Subjects
+    Classifier --> |Matches Subjects| Subjects
     Classifier --> |Sorts Files| FileSystem[Smart File Organizer]
-    
+
     Dashboard --> |Paste YouTube URL| MediaAPI[OnDemand Media API]
     MediaAPI --> |Transcribes| Transcript[Video Transcript]
-    Transcript --> |Context| ChatAPI[OnDemand Chat & Reasoning Agent]
-    
-    Dashboard --> |Ask Query| Bot["DTU Smart Bot (OnDemand)"]
-    Bot --> |Retrieves| Knowledge[Community & Official Data]
-    
-    Dashboard --> |Track| Attendance[Auto Attendance Tracker]
+
+    %% ---------- CONTEXT STORE ----------
+    Subjects --> Context[Student Context Store]
+    Schedule --> Context
+    Transcript --> Context
+
+    Dashboard --> |Track Attendance| Attendance[Auto Attendance Tracker]
     Attendance --> |Calculates| Stats[Attendance %]
+    Stats --> Context
+
+    %% ---------- INTELLIGENCE LAYER ----------
+    Context --> Advisor[AI Advisor Agent]
+    Advisor --> |Analyzes CGPA & Attendance| Report[AI Performance Report]
+
+    Context --> Planner[Daily & Exam Planner Agent]
+    Planner --> |Generates| StudyPlan[Personalized Study Plan]
+
+    Context --> Quiz[Quiz Master Agent]
+    Quiz --> |Generates| QuizSet[Subject-wise Quizzes]
+
+    Context --> Summarizer[AI Summarizer Agent]
+    Summarizer --> |Condenses| Summary[Document Summary]
+
+    %% ---------- QUERY & REASONING ----------
+    Dashboard --> |Ask Query| Bot["DTU Smart Bot (OnDemand)"]
+    Bot --> |Retrieves| Knowledge[DTU Official & Community Data]
+    Knowledge --> Reasoning[OnDemand Chat & Reasoning Agent]
+
 ```
+
 
 ---
 
