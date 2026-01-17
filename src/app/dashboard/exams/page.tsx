@@ -9,7 +9,8 @@ export default function ExamsPage() {
         { id: 1, subject: "MATHEMATICS-I", date: "2026-02-15", time: "10:00 AM", type: "Mid-Term", location: "Exam Hall A" },
         { id: 2, subject: "PROGRAMMING FUNDAMENTALS", date: "2026-02-17", time: "02:00 PM", type: "Mid-Term", location: "Lab 3" },
         { id: 3, subject: "WEB DESIGNING", date: "2026-02-20", time: "10:00 AM", type: "Mid-Term", location: "CS Block" },
-        { id: 4, subject: "BASIC ELECTRONICS", date: "2026-02-22", time: "02:00 PM", type: "Mid-Term", location: "Exam Hall B" },
+        { id: 4, subject: "BASIC ELECTRONICS & COMMUNICATION ENG.", date: "2026-02-22", time: "02:00 PM", type: "Mid-Term", location: "Exam Hall B" },
+        { id: 5, subject: "COMPUTER AIDED ENGINEERING GRAPHICS-2", date: "2026-02-24", time: "10:00 AM", type: "Mid-Term", location: "Design Lab" },
     ];
 
     // CGPA State
