@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Summariser from '@/components/Utilities/Summariser';
 import QuizMaster from '@/components/Utilities/QuizMaster';
+import GPACalculator from '@/components/Utilities/GPACalculator';
+import StudyPlanner from '@/components/Utilities/StudyPlanner';
 import styles from './page.module.css';
 
 export default function UtilitiesPage() {
@@ -28,12 +30,25 @@ export default function UtilitiesPage() {
                 >
                     Quiz Master
                 </button>
-                {/* Future utility tabs can be added here */}
+                <button
+                    className={`${styles.tab} ${activeTab === 'gpa' ? styles.active : ''}`}
+                    onClick={() => setActiveTab('gpa')}
+                >
+                    GPA Calculator
+                </button>
+                <button
+                    className={`${styles.tab} ${activeTab === 'planner' ? styles.active : ''}`}
+                    onClick={() => setActiveTab('planner')}
+                >
+                    Study Planner
+                </button>
             </div>
 
             <div className={styles.content}>
                 {activeTab === 'summariser' && <Summariser />}
                 {activeTab === 'quiz' && <QuizMaster />}
+                {activeTab === 'gpa' && <GPACalculator />}
+                {activeTab === 'planner' && <StudyPlanner />}
             </div>
         </div>
     );

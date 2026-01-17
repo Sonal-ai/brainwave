@@ -10,6 +10,13 @@ const ENDPOINT_ID = "predefined-xai-grok4.1-fast";
 const REASONING_MODE = "grok-4-fast";
 const FULFILLMENT_PROMPT = `You are a quiz master. You will be given a subject, number of questions, and difficulty, you are to quiz the user one question by one and give them their final score. After each wrong answer , you must correct them and continue asking. If given any other type of prompt, apologise and have them try again. You can find the syllabus of the various subjects at dtu.ac.in`;
 
+const TEMPERATURE = 0.3;
+const TOP_P = 1;
+const MAX_TOKENS = 0;
+const PRESENCE_PENALTY = 0;
+const FREQUENCY_PENALTY = 0;
+const RESPONSE_MODE = "stream"; // Consistent with GPA high-fidelity port
+
 async function createChatSession(externalUserId: string) {
     const url = `${BASE_URL}/sessions`;
     const contextMetadata = [
@@ -23,25 +30,93 @@ async function createChatSession(externalUserId: string) {
         contextMetadata: contextMetadata,
     };
 
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'apikey': API_KEY,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        });
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'apikey': API_KEY,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
 
-        if (response.status === 201) {
-            const data: any = await response.json();
-            return data.data.id;
-        } else {
-            return null;
-        }
-    } catch (error) {
-        return null;
+    if (response.status === 201) {
+        const sessionRespData: any = await response.json();
+        return sessionRespData.data.id;
     }
+    return "";
+}
+
+async function submitQuery(sessionId: string, query: string, contextMetadata: any[]) {
+    const url = `${BASE_URL}/sessions/${sessionId}/query`;
+    const body = {
+        endpointId: ENDPOINT_ID,
+        query: query,
+        agentIds: AGENT_IDS,
+        responseMode: RESPONSE_MODE,
+        reasoningMode: REASONING_MODE,
+        modelConfigs: {
+            fulfillmentPrompt: FULFILLMENT_PROMPT,
+            stopSequences: [],
+            temperature: TEMPERATURE,
+            topP: TOP_P,
+            maxTokens: MAX_TOKENS,
+            presencePenalty: PRESENCE_PENALTY,
+            frequencyPenalty: FREQUENCY_PENALTY,
+        },
+    };
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'apikey': API_KEY,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
+
+    if (!response.body) return null;
+
+    let fullAnswer = "";
+    let finalSessionId = "";
+    let finalMessageId = "";
+    let metrics: any = {};
+
+    for await (const chunk of response.body) {
+        const text = chunk.toString();
+        const lines = text.split('\n');
+
+        for (const line of lines) {
+            if (line.startsWith("data:")) {
+                const dataStr = line.slice(5).trim();
+                if (dataStr === "[DONE]") continue;
+
+                try {
+                    const event = JSON.parse(dataStr);
+                    if (event.eventType === "fulfillment") {
+                        if (event.answer) fullAnswer += event.answer;
+                        if (event.sessionId) finalSessionId = event.sessionId;
+                        if (event.messageId) finalMessageId = event.messageId;
+                    } else if (event.eventType === "metricsLog") {
+                        if (event.publicMetrics) metrics = event.publicMetrics;
+                    }
+                } catch (e) {
+                    continue;
+                }
+            }
+        }
+    }
+
+    return {
+        message: "Quiz query submitted successfully",
+        data: {
+            sessionId: finalSessionId || sessionId,
+            messageId: finalMessageId,
+            answer: fullAnswer,
+            metrics: metrics,
+            status: "completed",
+            contextMetadata: contextMetadata,
+        },
+    };
 }
 
 export async function POST(req: NextRequest) {
@@ -55,56 +130,31 @@ export async function POST(req: NextRequest) {
         let currentSessionId = sessionId;
         let currentExternalUserId = externalUserId || uuidv4();
 
-        if (!currentSessionId) {
+        if (!currentSessionId || currentSessionId === "null") {
             currentSessionId = await createChatSession(currentExternalUserId);
             if (!currentSessionId) {
                 return NextResponse.json({ error: "Failed to create session" }, { status: 500 });
             }
         }
 
+        const contextMetadata = [
+            { key: "userId", value: "1" },
+            { key: "name", value: "John" },
+        ];
+
         // Construct the query if it's the start
         const userQuery = query || `Start a quiz for Subject: ${subject}, Difficulty: ${difficulty}, Number of Questions: ${count}.`;
 
-        const url = `${BASE_URL}/sessions/${currentSessionId}/query`;
-        const body = {
-            endpointId: ENDPOINT_ID,
-            query: userQuery,
-            agentIds: AGENT_IDS,
-            responseMode: "sync", // Using sync for simplified implementation of interactive quiz
-            reasoningMode: REASONING_MODE,
-            modelConfigs: {
-                fulfillmentPrompt: FULFILLMENT_PROMPT,
-                temperature: 0.3,
-                topP: 1,
-                maxTokens: 0,
-                presencePenalty: 0,
-                frequencyPenalty: 0,
-            },
-        };
+        const finalResponse = await submitQuery(currentSessionId, userQuery, contextMetadata);
 
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'apikey': API_KEY,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        });
-
-        const data: any = await response.json();
-
-        if (response.status === 200 && data.data) {
-            return NextResponse.json({
-                answer: data.data.answer,
-                sessionId: currentSessionId,
-                externalUserId: currentExternalUserId
-            });
+        if (finalResponse) {
+            return NextResponse.json(finalResponse);
         } else {
             return NextResponse.json({ error: "Failed to get quiz response" }, { status: 500 });
         }
 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Quiz API Error:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+        return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
     }
 }

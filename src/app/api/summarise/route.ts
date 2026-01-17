@@ -5,17 +5,23 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { v4 as uuidv4 } from 'uuid';
-import { pipeline } from 'stream/promises';
 
 const API_KEY = process.env.ONDEMAND_API_KEY || "";
 const BASE_URL = "https://api.on-demand.io/chat/v1";
 const MEDIA_BASE_URL = "https://api.on-demand.io/media/v1";
 
-// Constants from the user snippet
 const AGENT_IDS = ["agent-1712327325", "agent-1713962163"];
 const ENDPOINT_ID = "predefined-xai-grok4.1-fast";
 const REASONING_MODE = "grok-4-fast";
 const FULFILLMENT_PROMPT = "When given an image or document, extract its contents and paraphrase it and return it to the user. Don't add anything else.";
+
+const TEMPERATURE = 0.3;
+const TOP_P = 1;
+const MAX_TOKENS = 0;
+const PRESENCE_PENALTY = 0;
+const FREQUENCY_PENALTY = 0;
+const RESPONSE_MODE = "stream";
+
 const FILE_AGENTS = ["agent-1713954536", "agent-1713958591", "agent-1713958830", "agent-1713961903", "agent-1713967141"];
 const CREATED_BY = "AIREV";
 const UPDATED_BY = "AIREV";
@@ -33,36 +39,26 @@ async function createChatSession(externalUserId: string) {
         contextMetadata: contextMetadata,
     };
 
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'apikey': API_KEY,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        });
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'apikey': API_KEY,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
 
-        if (response.status === 201) {
-            const data: any = await response.json();
-            return data.data.id;
-        } else {
-            console.error(`Error creating session: ${response.status} - ${await response.text()}`);
-            return null;
-        }
-    } catch (error) {
-        console.error("Exception creating session:", error);
-        return null;
+    if (response.status === 201) {
+        const data: any = await response.json();
+        return data.data.id;
     }
+    return "";
 }
 
 async function uploadMediaFile(filePath: string, fileName: string, sessionId: string) {
     const url = `${MEDIA_BASE_URL}/public/file/raw`;
 
-    if (!fs.existsSync(filePath)) {
-        console.error(`File not found: ${filePath}`);
-        return null;
-    }
+    if (!fs.existsSync(filePath)) return null;
 
     try {
         const formData = new FormData();
@@ -71,7 +67,7 @@ async function uploadMediaFile(filePath: string, fileName: string, sessionId: st
         formData.append('createdBy', CREATED_BY);
         formData.append('updatedBy', UPDATED_BY);
         formData.append('name', fileName);
-        formData.append('responseMode', 'sync'); // Using sync for upload acknowledgement
+        formData.append('responseMode', 'sync');
 
         FILE_AGENTS.forEach(agent => {
             formData.append('agents', agent);
@@ -89,77 +85,84 @@ async function uploadMediaFile(filePath: string, fileName: string, sessionId: st
         if (response.status === 201 || response.status === 200) {
             const data: any = await response.json();
             return data.data;
-        } else {
-            console.error(`Error uploading file: ${response.status} - ${await response.text()}`);
-            return null;
         }
     } catch (error) {
-        console.error("Exception uploading file:", error);
-        return null;
+        console.error("Upload error:", error);
     }
+    return null;
 }
 
-async function submitQuery(sessionId: string) {
+async function submitQuery(sessionId: string, contextMetadata: any[]) {
     const url = `${BASE_URL}/sessions/${sessionId}/query`;
     const body = {
         endpointId: ENDPOINT_ID,
-        query: "Summarize the uploaded document.", // Generic query to trigger the prompt
+        query: "Summarize the uploaded document.",
         agentIds: AGENT_IDS,
-        responseMode: "stream",
+        responseMode: RESPONSE_MODE,
         reasoningMode: REASONING_MODE,
         modelConfigs: {
             fulfillmentPrompt: FULFILLMENT_PROMPT,
-            temperature: 0.3,
-            topP: 1,
-            maxTokens: 0,
-            presencePenalty: 0,
-            frequencyPenalty: 0,
+            stopSequences: [],
+            temperature: TEMPERATURE,
+            topP: TOP_P,
+            maxTokens: MAX_TOKENS,
+            presencePenalty: PRESENCE_PENALTY,
+            frequencyPenalty: FREQUENCY_PENALTY,
         },
     };
 
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'apikey': API_KEY,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        });
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'apikey': API_KEY,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
 
-        if (!response.body) return "No response body";
+    if (!response.body) return null;
 
-        // Read stream and collect answer
-        const reader = response.body; // node-fetch body is a stream
-        let fullAnswer = "";
+    let fullAnswer = "";
+    let finalSessionId = "";
+    let finalMessageId = "";
+    let metrics: any = {};
 
-        // Handling the stream manually since it's an API route and we want to return the full text
-        // Note: node-fetch returns a NodeJS Readable stream
-        for await (const chunk of reader) {
-            const lines = chunk.toString().split('\n');
-            for (const line of lines) {
-                if (line.startsWith("data:")) {
-                    const dataStr = line.slice(5).trim();
-                    if (dataStr === "[DONE]") continue;
+    for await (const chunk of response.body) {
+        const text = chunk.toString();
+        const lines = text.split('\n');
 
-                    try {
-                        const event = JSON.parse(dataStr);
-                        if (event.eventType === "fulfillment" && event.answer) {
-                            fullAnswer += event.answer;
-                        }
-                    } catch (e) {
-                        // ignore parse errors
+        for (const line of lines) {
+            if (line.startsWith("data:")) {
+                const dataStr = line.slice(5).trim();
+                if (dataStr === "[DONE]") continue;
+
+                try {
+                    const event = JSON.parse(dataStr);
+                    if (event.eventType === "fulfillment") {
+                        if (event.answer) fullAnswer += event.answer;
+                        if (event.sessionId) finalSessionId = event.sessionId;
+                        if (event.messageId) finalMessageId = event.messageId;
+                    } else if (event.eventType === "metricsLog") {
+                        if (event.publicMetrics) metrics = event.publicMetrics;
                     }
+                } catch (e) {
+                    continue;
                 }
             }
         }
-
-        return fullAnswer;
-
-    } catch (error) {
-        console.error("Exception submitting query:", error);
-        return "Error generating summary.";
     }
+
+    return {
+        message: "Summary generated successfully",
+        data: {
+            sessionId: finalSessionId || sessionId,
+            messageId: finalMessageId,
+            answer: fullAnswer,
+            metrics: metrics,
+            status: "completed",
+            contextMetadata: contextMetadata,
+        },
+    };
 }
 
 export async function POST(req: NextRequest) {
@@ -175,13 +178,11 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "No file provided" }, { status: 400 });
         }
 
-        // Save file to temp
         const tempDir = os.tmpdir();
         const tempFilePath = path.join(tempDir, `${uuidv4()}-${file.name}`);
         const buffer = Buffer.from(await file.arrayBuffer());
         await fs.promises.writeFile(tempFilePath, buffer);
 
-        // Process
         const externalUserId = uuidv4();
         const sessionId = await createChatSession(externalUserId);
 
@@ -191,20 +192,27 @@ export async function POST(req: NextRequest) {
         }
 
         const uploadResult = await uploadMediaFile(tempFilePath, file.name, sessionId);
-
-        // Clean up temp file
         await fs.promises.unlink(tempFilePath);
 
         if (!uploadResult) {
             return NextResponse.json({ error: "Failed to upload file" }, { status: 500 });
         }
 
-        const summary = await submitQuery(sessionId);
+        const contextMetadata = [
+            { key: "userId", value: "1" },
+            { key: "name", value: "John" },
+        ];
 
-        return NextResponse.json({ summary });
+        const finalResponse = await submitQuery(sessionId, contextMetadata);
 
-    } catch (error) {
+        if (finalResponse) {
+            return NextResponse.json(finalResponse);
+        } else {
+            return NextResponse.json({ error: "Failed to generate summary" }, { status: 500 });
+        }
+
+    } catch (error: any) {
         console.error("API Route Error:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+        return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 });
     }
 }

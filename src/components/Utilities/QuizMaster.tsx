@@ -75,10 +75,10 @@ export default function QuizMaster() {
             });
 
             const data = await response.json();
-            if (data.answer) {
-                setMessages([{ role: 'assistant', content: data.answer }]);
-                setSessionId(data.sessionId);
-                setExternalUserId(data.externalUserId);
+            if (data.data?.answer) {
+                setMessages([{ role: 'assistant', content: data.data.answer }]);
+                setSessionId(data.data.sessionId);
+                setExternalUserId(data.data.externalUserId);
             }
         } catch (error) {
             console.error("Failed to start quiz", error);
@@ -108,8 +108,8 @@ export default function QuizMaster() {
             });
 
             const data = await response.json();
-            if (data.answer) {
-                setMessages(prev => [...prev, { role: 'assistant', content: data.answer }]);
+            if (data.data?.answer) {
+                setMessages(prev => [...prev, { role: 'assistant', content: data.data.answer }]);
             }
         } catch (error) {
             console.error("Failed to send message", error);

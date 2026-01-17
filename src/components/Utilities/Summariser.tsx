@@ -33,9 +33,8 @@ export default function Summariser() {
             });
 
             const data = await response.json();
-
-            if (response.ok && data.summary) {
-                setSummary(data.summary);
+            if (response.ok && data.data?.answer) {
+                setSummary(data.data.answer);
             } else {
                 setError(data.error || "Failed to generate summary");
             }

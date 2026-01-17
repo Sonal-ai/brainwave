@@ -98,8 +98,8 @@ export default function FilesPage() {
         // Use Auth0 user data
         // For local state compatibility, we construct a user object or fetch full profile from sync
         const email = auth0User.email;
-        setUser({ username: email, ...auth0User }); // Temporary local object
-        fetchData(email); // Fetch latest data from DB
+        setUser({ username: email, subjects: subjects, ...auth0User }); // Initialize with current subjects state
+        fetchData(email);
 
     }, [isLoading, isAuthenticated, auth0User]);
 
@@ -234,7 +234,7 @@ export default function FilesPage() {
                             addToLog(`✅ Classified as: ${classifyData.subject}`);
 
                             // Update Local State
-                            const updatedSubjects = [...user.subjects];
+                            const updatedSubjects = [...(user.subjects || [])];
                             if (!updatedSubjects.includes(classifyData.subject)) {
                                 updatedSubjects.push(classifyData.subject);
                             }

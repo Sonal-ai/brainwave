@@ -918,7 +918,13 @@
         "MATHEMATICS-II",
         "BASICS OF MACHINE LEARNING AND APPLICATIONS",
         "AS SELECTED",
-        "PHYSICS"
+        "PHYSICS",
+        "MATHEMATICS-I",
+        "PROGRAMMING FUNDAMENTALS",
+        "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
+        "COMPUTER AIDED ENGINEERING GRAPHICS-2",
+        "WEB DESIGNING",
+        "Time Table"
       ],
       "files": [
         {
@@ -930,62 +936,40 @@
           "uploadDate": "2026-01-16T22:13:08.481Z",
           "mediaId": "/uploads/1768601588479-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
           "parsed": true
+        },
+        {
+          "id": "2cb4d44a-d3b6-43b7-88d8-48089d005583",
+          "name": "WhatsApp Image 2026-01-16 at 11.40.40 AM.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T22:23:51.625Z",
+          "mediaId": "/uploads/1768602231623-WhatsApp_Image_2026-01-16_at_11.40.40_AM.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "aa185969-fc67-4c66-b922-4c6becb14628",
+          "name": "WhatsApp Image 2026-01-17 at 3.13.01 AM.jpeg",
+          "size": 49665,
+          "type": "resource",
+          "subject": "Time Table",
+          "uploadDate": "2026-01-16T22:24:49.226Z",
+          "mediaId": "/uploads/1768602289225-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
+          "parsed": false
+        },
+        {
+          "id": "a19ae4e2-6720-4ff4-9916-0c34a1967dca",
+          "name": "WhatsApp Image 2026-01-17 at 3.13.01 AM.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-16T22:26:16.357Z",
+          "mediaId": "/uploads/1768602376355-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
+          "parsed": true
         }
       ],
       "timetable": {
         "subjects": [
-          {
-            "name": "DATA STRUCTURES",
-            "classes": [
-              {
-                "day": "MON",
-                "start_time": "10:00",
-                "end_time": "11:00",
-                "location": "PBGF-6",
-                "subject": "DATA STRUCTURES"
-              },
-              {
-                "day": "WED",
-                "start_time": "10:00",
-                "end_time": "11:00",
-                "location": "PBGF-6",
-                "subject": "DATA STRUCTURES"
-              },
-              {
-                "day": "THU",
-                "start_time": "14:00",
-                "end_time": "16:00",
-                "location": "lab",
-                "subject": "DATA STRUCTURES"
-              }
-            ]
-          },
-          {
-            "name": "DISCRETE STRUCTURE",
-            "classes": [
-              {
-                "day": "MON",
-                "start_time": "11:00",
-                "end_time": "12:00",
-                "location": "PBGF-6",
-                "subject": "DISCRETE STRUCTURE"
-              },
-              {
-                "day": "WED",
-                "start_time": "15:00",
-                "end_time": "16:00",
-                "location": "PBGF-6",
-                "subject": "DISCRETE STRUCTURE"
-              },
-              {
-                "day": "THU",
-                "start_time": "11:00",
-                "end_time": "12:00",
-                "location": "PBGF-6",
-                "subject": "DISCRETE STRUCTURE"
-              }
-            ]
-          },
           {
             "name": "MATHEMATICS-II",
             "classes": [
@@ -1013,13 +997,65 @@
             ]
           },
           {
+            "name": "DISCRETE STRUCTURE",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "11:00",
+                "end_time": "12:00",
+                "location": "PBGF-6",
+                "subject": "DISCRETE STRUCTURE"
+              },
+              {
+                "day": "WED",
+                "start_time": "15:00",
+                "end_time": "16:00",
+                "location": "PBGF-6",
+                "subject": "DISCRETE STRUCTURE"
+              },
+              {
+                "day": "THU",
+                "start_time": "11:00",
+                "end_time": "13:00",
+                "location": "PBGF-6",
+                "subject": "DISCRETE STRUCTURE"
+              }
+            ]
+          },
+          {
+            "name": "DATA STRUCTURES",
+            "classes": [
+              {
+                "day": "MON",
+                "start_time": "10:00",
+                "end_time": "11:00",
+                "location": "PBGF-6",
+                "subject": "DATA STRUCTURES"
+              },
+              {
+                "day": "WED",
+                "start_time": "10:00",
+                "end_time": "11:00",
+                "location": "PBGF-6",
+                "subject": "DATA STRUCTURES"
+              },
+              {
+                "day": "THU",
+                "start_time": "15:00",
+                "end_time": "17:00",
+                "location": "CS104 lab",
+                "subject": "DATA STRUCTURES"
+              }
+            ]
+          },
+          {
             "name": "BASICS OF MACHINE LEARNING AND APPLICATIONS",
             "classes": [
               {
                 "day": "MON",
                 "start_time": "16:00",
                 "end_time": "18:00",
-                "location": "lab",
+                "location": "CS106 lab",
                 "subject": "BASICS OF MACHINE LEARNING AND APPLICATIONS"
               },
               {
@@ -1028,25 +1064,6 @@
                 "end_time": "15:00",
                 "location": "PBGF-6",
                 "subject": "BASICS OF MACHINE LEARNING AND APPLICATIONS"
-              }
-            ]
-          },
-          {
-            "name": "AS SELECTED",
-            "classes": [
-              {
-                "day": "TUE",
-                "start_time": "08:00",
-                "end_time": "10:00",
-                "location": "",
-                "subject": "AS SELECTED"
-              },
-              {
-                "day": "THU",
-                "start_time": "08:00",
-                "end_time": "10:00",
-                "location": "",
-                "subject": "AS SELECTED"
               }
             ]
           },
@@ -1071,8 +1088,27 @@
                 "day": "FRI",
                 "start_time": "13:00",
                 "end_time": "15:00",
-                "location": "LAB",
+                "location": "",
                 "subject": "PHYSICS"
+              }
+            ]
+          },
+          {
+            "name": "AS SELECTED",
+            "classes": [
+              {
+                "day": "TUE",
+                "start_time": "08:00",
+                "end_time": "10:00",
+                "location": "",
+                "subject": "AS SELECTED"
+              },
+              {
+                "day": "THU",
+                "start_time": "08:00",
+                "end_time": "10:00",
+                "location": "",
+                "subject": "AS SELECTED"
               }
             ]
           }
