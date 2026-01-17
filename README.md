@@ -26,7 +26,7 @@ graph TD
     MediaAPI --> |Transcribes| Transcript[Video Transcript]
     Transcript --> |Context| ChatAPI[OnDemand Chat & Reasoning Agent]
     
-    Dashboard --> |Ask Query| Bot[DTU Smart Bot (OnDemand)]
+    Dashboard --> |Ask Query| Bot["DTU Smart Bot (OnDemand)"]
     Bot --> |Retrieves| Knowledge[Community & Official Data]
     
     Dashboard --> |Track| Attendance[Auto Attendance Tracker]
