@@ -381,3 +381,25 @@
         transform: translateY(0);
     }
 }
+
+/* Typing Animation for AI Thinking */
+@keyframes typing {
+
+    0%,
+    20% {
+        opacity: 0.3;
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    60%,
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.typing {
+    animation: typing 1.4s infinite;
+}
