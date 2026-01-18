@@ -25,10 +25,17 @@ const prompt = ai.definePrompt({
     output: { schema: ParseTimetableOutputSchema },
     prompt: `You are a timetable parsing expert. Your goal is to extract the schedule information from the provided document into a structured JSON format.
 
-  Analyze the provided document and extract each class into an object with the following fields: day, startTime, endTime, subject, and location.
+  Analyze the document and extract:
+  1. A list of all unique SUBJECT NAMES in a top-level "subjects" array (strings).
+  2. A "schedule" object containing a "subjects" array where each subject has its name and a list of classes.
+  
+  Each class must have: day, start_time, end_time, and location.
+  Normalize days to 3-letter codes (MON, TUE, WED, THU, FRI, SAT, SUN).
+  Normalize times to 24-hour HH:MM format.
 
   Document: {{media url=fileDataUri}}`,
 });
+
 
 const parseTimetableFlow = ai.defineFlow(
     {

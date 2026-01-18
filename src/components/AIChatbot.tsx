@@ -9,9 +9,12 @@ const AIChatbot = () => {
     const [studentContext, setStudentContext] = React.useState<string>("");
 
     React.useEffect(() => {
-        // Collect Student Data for Context
-        const attData = localStorage.getItem('attendance_data');
-        const acadData = localStorage.getItem('academic_data');
+        if (!user?.email) return;
+
+        // Collect Student Data for Context (Scoped to User)
+        const attData = localStorage.getItem(`attendance_data_${user.email}`);
+        const acadData = localStorage.getItem(`academic_data_${user.email}`);
+
 
         let summary = "Student Academic Status:\n";
 

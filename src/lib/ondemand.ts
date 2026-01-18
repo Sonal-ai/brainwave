@@ -98,15 +98,22 @@ export async function analyzeTimetable(mediaId: string): Promise<any> {
             Analyze the image with ID ${mediaId}. 
             Extract the timetable schedule into this strict JSON format:
             {
-              "subjects": [
-                {
-                  "name": "Subject Name",
-                  "classes": [
-                    { "day": "Monday", "start_time": "10:00 AM", "end_time": "11:00 AM", "location": "Room 101" }
-                  ]
-                }
-              ]
+              "subjects": ["Subject 1", "Subject 2"],
+              "schedule": {
+                "subjects": [
+                  {
+                    "name": "Subject 1",
+                    "classes": [
+                      { "day": "MON", "start_time": "10:00", "end_time": "11:00", "location": "Room 101" }
+                    ]
+                  }
+                ]
+              }
             }
+            
+            Normalization Rules:
+            - Days: MON, TUE, WED, THU, FRI, SAT, SUN
+            - Times: 24-hour HH:MM format
         `;
 
         const queryRes = await fetch(`https://api.on-demand.io/chat/v1/sessions/${sessionId}/query`, {
@@ -116,7 +123,7 @@ export async function analyzeTimetable(mediaId: string): Promise<any> {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                modelId: '6969d6b8ac9b040cc2f752f9', // GPT-5.2 User Locked Model
+                modelId: '6969d6b8ac9b040cc2f752f9', // GPT-4o Agent
                 query: prompt,
                 pluginIds: [TOOL_ID],
                 responseMode: 'sync'
@@ -145,6 +152,7 @@ export async function analyzeTimetable(mediaId: string): Promise<any> {
         return null; // Return null so UI shows "Analysis Failed"
     }
 }
+
 
 export async function processFileWithAgent(
     file: File,

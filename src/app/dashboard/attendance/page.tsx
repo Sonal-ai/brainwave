@@ -13,43 +13,53 @@ export default function AttendancePage() {
 
     // Load Data
     useEffect(() => {
-        // 1. Try to load saved attendance from LocalStorage
-        const saved = localStorage.getItem('attendance_data');
+        if (!user?.email) return;
+
+        // 1. Load User-Specific Data from LocalStorage
+        const storageKey = `attendance_data_${user.email}`;
+        const saved = localStorage.getItem(storageKey);
+
         if (saved) {
             setAttendance(JSON.parse(saved));
         } else {
-            // Initialize
+            // Initial Seed for new users
             const initial: any = {};
             STATIC_SUBJECTS.forEach(s => initial[s] = { attended: 0, total: 0 });
             setAttendance(initial);
         }
 
-        // 2. Try to sync subjects from DB (optional, essentially "get from previous method")
-        if (user?.email) {
-            fetch('/api/auth/sync', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: user.email, name: user.name })
+        // 2. Sync Subjects from DB
+        fetch('/api/auth/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: user.email, name: user.name })
+        })
+            .then(r => r.json())
+            .then(data => {
+                if (data.user?.subjects && data.user.subjects.length > 0) {
+                    setSubjects(data.user.subjects);
+                    // Ensure tracking exists for any newly discovered subjects
+                    setAttendance(prev => {
+                        const next = { ...prev };
+                        data.user.subjects.forEach((s: string) => {
+                            if (!next[s]) next[s] = { attended: 0, total: 0 };
+                        });
+                        return next;
+                    });
+                }
             })
-                .then(r => r.json())
-                .then(data => {
-                    const timetableSubjs = data.user?.timetable?.subjects?.map((s: any) => s.name);
-                    if (timetableSubjs && timetableSubjs.length > 0) {
-                        // Merge with existing attendance logic if needed, for now just replace list
-                        // But we must preserve attendance data for matching names
-                        setSubjects(timetableSubjs);
-                    }
-                })
-                .catch(e => console.error(e));
-        }
+            .catch(e => console.error("Attendance sync failed:", e));
+
     }, [user]);
 
     // Save on Change
     useEffect(() => {
-        if (Object.keys(attendance).length > 0) {
-            localStorage.setItem('attendance_data', JSON.stringify(attendance));
+        if (user?.email && Object.keys(attendance).length > 0) {
+            const storageKey = `attendance_data_${user.email}`;
+            localStorage.setItem(storageKey, JSON.stringify(attendance));
         }
-    }, [attendance]);
+    }, [attendance, user?.email]);
+
 
     const updateAttendance = (subject: string, type: 'present' | 'absent') => {
         setAttendance(prev => {

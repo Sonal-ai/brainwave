@@ -666,18 +666,12 @@
       "password": "",
       "name": "Sidharth Bharti",
       "subjects": [
-        "DATA STRUCTURES",
-        "DISCRETE STRUCTURE",
-        "MATHEMATICS-II",
-        "BASICS OF MACHINE LEARNING AND APPLICATIONS",
-        "AS SELECTED",
-        "PHYSICS",
         "MATHEMATICS-I",
         "PROGRAMMING FUNDAMENTALS",
         "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
         "COMPUTER AIDED ENGINEERING GRAPHICS-2",
         "WEB DESIGNING",
-        "Time Table"
+        "AS SELECTED"
       ],
       "files": [
         {
@@ -719,153 +713,277 @@
           "uploadDate": "2026-01-16T22:26:16.357Z",
           "mediaId": "/uploads/1768602376355-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
           "parsed": true
+        },
+        {
+          "id": "257c7c46-87e2-46ba-93dc-9cb8a2e00246",
+          "name": "WhatsApp Image 2026-01-17 at 3.13.01 AM.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-18T08:51:09.561Z",
+          "mediaId": "/uploads/1768726269554-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "639eb8b8-c925-41fa-a862-a4a393e87685",
+          "name": "WhatsApp Image 2026-01-17 at 3.13.01 AM.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-18T08:52:35.959Z",
+          "mediaId": "/uploads/1768726355954-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "ccdc0f93-fc40-40cf-9358-72a3a136c489",
+          "name": "bitwise operators.pdf",
+          "size": 68096,
+          "type": "resource",
+          "subject": "DISCRETE STRUCTURE",
+          "uploadDate": "2026-01-18T08:56:15.004Z",
+          "mediaId": "/uploads/1768726574998-bitwise_operators.pdf",
+          "parsed": false
+        },
+        {
+          "id": "e5d5fce5-9332-4498-943f-71f69930469b",
+          "name": "WhatsApp Image 2026-01-17 at 3.13.01 AM.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-18T09:02:25.438Z",
+          "mediaId": "/uploads/1768726945416-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "31a4dca9-975b-4600-9858-13685eead1d9",
+          "name": "tt1.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-18T09:14:52.189Z",
+          "mediaId": "/uploads/1768727692184-tt1.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "78261bde-465e-46bd-bc18-cfb7e2af4a9b",
+          "name": "WhatsApp Image 2026-01-17 at 3.13.01 AM.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-18T09:15:54.723Z",
+          "mediaId": "/uploads/1768727754719-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "e645aaf1-c1f1-44b8-8839-6c6de32f1d5e",
+          "name": "WhatsApp Image 2026-01-17 at 3.13.01 AM.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-18T09:19:48.541Z",
+          "mediaId": "/uploads/1768727988537-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "f285af91-e874-4607-bd92-be643432f7f5",
+          "name": "tt1.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-18T09:20:57.022Z",
+          "mediaId": "/uploads/1768728057019-tt1.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "f4ae4668-5e3b-490d-8851-8790fddca8f5",
+          "name": "tt1.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-18T09:22:39.470Z",
+          "mediaId": "/uploads/1768728159467-tt1.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "e4c30672-d8a9-4248-b5fb-baeda73748c2",
+          "name": "WhatsApp Image 2026-01-17 at 3.13.01 AM.jpeg",
+          "size": 49665,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-18T09:23:52.615Z",
+          "mediaId": "/uploads/1768728232598-WhatsApp_Image_2026-01-17_at_3.13.01_AM.jpeg",
+          "parsed": true
+        },
+        {
+          "id": "e9591a5d-47ee-4ce8-9b57-62651d184ea4",
+          "name": "bitwise operators.pdf",
+          "size": 68096,
+          "type": "resource",
+          "subject": "DISCRETE STRUCTURE",
+          "uploadDate": "2026-01-18T09:24:46.450Z",
+          "mediaId": "/uploads/1768728286446-bitwise_operators.pdf",
+          "parsed": false
+        },
+        {
+          "id": "68f35de8-1a72-476a-97a4-68ecbe75b963",
+          "name": "tt1.jpeg",
+          "size": 69915,
+          "type": "timetable",
+          "subject": "Timetable (Analyzed)",
+          "uploadDate": "2026-01-18T09:29:05.927Z",
+          "mediaId": "/uploads/1768728545921-tt1.jpeg",
+          "parsed": true
         }
       ],
       "timetable": {
         "subjects": [
-          {
-            "name": "MATHEMATICS-II",
-            "classes": [
-              {
-                "day": "MON",
-                "start_time": "15:00",
-                "end_time": "16:00",
-                "location": "PB-GF5 G1/G2",
-                "subject": "MATHEMATICS-II"
-              },
-              {
-                "day": "TUE",
-                "start_time": "12:00",
-                "end_time": "13:00",
-                "location": "PBGF-6",
-                "subject": "MATHEMATICS-II"
-              },
-              {
-                "day": "WED",
-                "start_time": "09:00",
-                "end_time": "10:00",
-                "location": "PBGF-6",
-                "subject": "MATHEMATICS-II"
-              }
-            ]
-          },
-          {
-            "name": "DISCRETE STRUCTURE",
-            "classes": [
-              {
-                "day": "MON",
-                "start_time": "11:00",
-                "end_time": "12:00",
-                "location": "PBGF-6",
-                "subject": "DISCRETE STRUCTURE"
-              },
-              {
-                "day": "WED",
-                "start_time": "15:00",
-                "end_time": "16:00",
-                "location": "PBGF-6",
-                "subject": "DISCRETE STRUCTURE"
-              },
-              {
-                "day": "THU",
-                "start_time": "11:00",
-                "end_time": "13:00",
-                "location": "PBGF-6",
-                "subject": "DISCRETE STRUCTURE"
-              }
-            ]
-          },
-          {
-            "name": "DATA STRUCTURES",
-            "classes": [
-              {
-                "day": "MON",
-                "start_time": "10:00",
-                "end_time": "11:00",
-                "location": "PBGF-6",
-                "subject": "DATA STRUCTURES"
-              },
-              {
-                "day": "WED",
-                "start_time": "10:00",
-                "end_time": "11:00",
-                "location": "PBGF-6",
-                "subject": "DATA STRUCTURES"
-              },
-              {
-                "day": "THU",
-                "start_time": "15:00",
-                "end_time": "17:00",
-                "location": "CS104 lab",
-                "subject": "DATA STRUCTURES"
-              }
-            ]
-          },
-          {
-            "name": "BASICS OF MACHINE LEARNING AND APPLICATIONS",
-            "classes": [
-              {
-                "day": "MON",
-                "start_time": "16:00",
-                "end_time": "18:00",
-                "location": "CS106 lab",
-                "subject": "BASICS OF MACHINE LEARNING AND APPLICATIONS"
-              },
-              {
-                "day": "TUE",
-                "start_time": "14:00",
-                "end_time": "15:00",
-                "location": "PBGF-6",
-                "subject": "BASICS OF MACHINE LEARNING AND APPLICATIONS"
-              }
-            ]
-          },
-          {
-            "name": "PHYSICS",
-            "classes": [
-              {
-                "day": "WED",
-                "start_time": "12:00",
-                "end_time": "13:00",
-                "location": "PBGF-6",
-                "subject": "PHYSICS"
-              },
-              {
-                "day": "FRI",
-                "start_time": "12:00",
-                "end_time": "13:00",
-                "location": "PBGF-6",
-                "subject": "PHYSICS"
-              },
-              {
-                "day": "FRI",
-                "start_time": "13:00",
-                "end_time": "15:00",
-                "location": "",
-                "subject": "PHYSICS"
-              }
-            ]
-          },
-          {
-            "name": "AS SELECTED",
-            "classes": [
-              {
-                "day": "TUE",
-                "start_time": "08:00",
-                "end_time": "10:00",
-                "location": "",
-                "subject": "AS SELECTED"
-              },
-              {
-                "day": "THU",
-                "start_time": "08:00",
-                "end_time": "10:00",
-                "location": "",
-                "subject": "AS SELECTED"
-              }
-            ]
-          }
-        ]
+          "MATHEMATICS-I",
+          "PROGRAMMING FUNDAMENTALS",
+          "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
+          "COMPUTER AIDED ENGINEERING GRAPHICS-2",
+          "WEB DESIGNING",
+          "AS SELECTED"
+        ],
+        "schedule": {
+          "subjects": [
+            {
+              "name": "MATHEMATICS-I",
+              "classes": [
+                {
+                  "day": "TUE",
+                  "start_time": "12:00",
+                  "end_time": "13:00",
+                  "location": "PB-GF6",
+                  "subject": "MATHEMATICS-I"
+                },
+                {
+                  "day": "TUE",
+                  "start_time": "13:00",
+                  "end_time": "14:00",
+                  "location": "PB-GF6",
+                  "subject": "MATHEMATICS-I"
+                },
+                {
+                  "day": "WED",
+                  "start_time": "09:00",
+                  "end_time": "10:00",
+                  "subject": "MATHEMATICS-I"
+                },
+                {
+                  "day": "WED",
+                  "start_time": "15:00",
+                  "end_time": "16:00",
+                  "location": "PB-GF6",
+                  "subject": "MATHEMATICS-I"
+                }
+              ]
+            },
+            {
+              "name": "PROGRAMMING FUNDAMENTALS",
+              "classes": [
+                {
+                  "day": "MON",
+                  "start_time": "13:00",
+                  "end_time": "14:00",
+                  "subject": "PROGRAMMING FUNDAMENTALS"
+                },
+                {
+                  "day": "FRI",
+                  "start_time": "13:00",
+                  "end_time": "14:00",
+                  "subject": "PROGRAMMING FUNDAMENTALS"
+                },
+                {
+                  "day": "FRI",
+                  "start_time": "14:00",
+                  "end_time": "15:00",
+                  "subject": "PROGRAMMING FUNDAMENTALS"
+                }
+              ]
+            },
+            {
+              "name": "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
+              "classes": [
+                {
+                  "day": "MON",
+                  "start_time": "12:00",
+                  "end_time": "13:00",
+                  "subject": "BASIC ELECTRONICS & COMMUNICATION ENGINEERING"
+                },
+                {
+                  "day": "THU",
+                  "start_time": "11:00",
+                  "end_time": "12:00",
+                  "subject": "BASIC ELECTRONICS & COMMUNICATION ENGINEERING"
+                },
+                {
+                  "day": "THU",
+                  "start_time": "16:00",
+                  "end_time": "17:00",
+                  "subject": "BASIC ELECTRONICS & COMMUNICATION ENGINEERING"
+                }
+              ]
+            },
+            {
+              "name": "COMPUTER AIDED ENGINEERING GRAPHICS-2",
+              "classes": [
+                {
+                  "day": "MON",
+                  "start_time": "09:00",
+                  "end_time": "10:00",
+                  "subject": "COMPUTER AIDED ENGINEERING GRAPHICS-2"
+                },
+                {
+                  "day": "MON",
+                  "start_time": "11:00",
+                  "end_time": "12:00",
+                  "subject": "COMPUTER AIDED ENGINEERING GRAPHICS-2"
+                },
+                {
+                  "day": "WED",
+                  "start_time": "11:00",
+                  "end_time": "12:00",
+                  "subject": "COMPUTER AIDED ENGINEERING GRAPHICS-2"
+                }
+              ]
+            },
+            {
+              "name": "WEB DESIGNING",
+              "classes": [
+                {
+                  "day": "TUE",
+                  "start_time": "14:00",
+                  "end_time": "15:00",
+                  "subject": "WEB DESIGNING"
+                },
+                {
+                  "day": "THU",
+                  "start_time": "14:00",
+                  "end_time": "15:00",
+                  "location": "Prog. Lab",
+                  "subject": "WEB DESIGNING"
+                }
+              ]
+            },
+            {
+              "name": "AS SELECTED",
+              "classes": [
+                {
+                  "day": "TUE",
+                  "start_time": "08:00",
+                  "end_time": "09:00",
+                  "subject": "AS SELECTED"
+                },
+                {
+                  "day": "THU",
+                  "start_time": "08:00",
+                  "end_time": "09:00",
+                  "subject": "AS SELECTED"
+                }
+              ]
+            }
+          ]
+        }
       }
     }
   ]

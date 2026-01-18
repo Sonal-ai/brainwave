@@ -26,9 +26,12 @@ export default function Dashboard() {
     const fetchAdvice = async () => {
         setLoadingAdvice(true);
         try {
-            // Get data from localStorage
-            const attData = JSON.parse(localStorage.getItem('attendance_data') || '{}');
-            const acadData = JSON.parse(localStorage.getItem('academic_data') || '{}');
+            if (!user?.email) return;
+
+            // Get data from localStorage (Scoped to User)
+            const attData = JSON.parse(localStorage.getItem(`attendance_data_${user.email}`) || '{}');
+            const acadData = JSON.parse(localStorage.getItem(`academic_data_${user.email}`) || '{}');
+
 
             const res = await fetch('/api/advice', {
                 method: 'POST',
@@ -69,8 +72,9 @@ export default function Dashboard() {
             })
                 .then(r => r.json())
                 .then(data => {
-                    if (data.user?.timetable?.subjects?.length > 0) {
-                        setScheduleData(data.user.timetable);
+                    const timetable = data.user?.timetable;
+                    if (timetable) {
+                        setScheduleData(timetable);
                     }
                 })
                 .catch(e => console.error(e));
@@ -79,13 +83,19 @@ export default function Dashboard() {
 
     // Calculate Upcoming Classes
     useEffect(() => {
-        if (!scheduleData?.subjects) return;
+        // Try to get subjects from new schema or legacy schema
+        const subjectsList = scheduleData?.schedule?.subjects || scheduleData?.subjects || [];
+        if (subjectsList.length === 0) return;
 
         const allSessions: any[] = [];
-        scheduleData.subjects.forEach((subj: any) => {
+        subjectsList.forEach((subj: any) => {
             if (subj.classes) {
                 subj.classes.forEach((cls: any) => {
-                    allSessions.push({ ...cls, subjectName: subj.name });
+                    allSessions.push({
+                        ...cls,
+                        subjectName: subj.name,
+                        day: cls.day?.toUpperCase() // Normalize day
+                    });
                 });
             }
         });
@@ -97,11 +107,11 @@ export default function Dashboard() {
 
         // 1. Get classes for TODAY that haven't passed yet
         const todayClasses = allSessions
-            .filter(s => s.day?.toUpperCase().startsWith(currentDay))
+            .filter(s => s.day === currentDay || s.day?.startsWith(currentDay))
             .filter(s => {
                 const [h, m] = s.start_time.split(':').map(Number);
                 const classTime = h * 60 + m;
-                return classTime > currentTime; // Only future classes
+                return classTime > currentTime;
             })
             .sort((a, b) => a.start_time.localeCompare(b.start_time));
 
@@ -109,7 +119,7 @@ export default function Dashboard() {
         const nextDayIndex = (now.getDay() + 1) % 7;
         const nextDay = days[nextDayIndex];
         const tomorrowClasses = allSessions
-            .filter(s => s.day?.toUpperCase().startsWith(nextDay))
+            .filter(s => s.day === nextDay || s.day?.startsWith(nextDay))
             .sort((a, b) => a.start_time.localeCompare(b.start_time));
 
         setNextClasses([...todayClasses, ...tomorrowClasses].slice(0, 3));

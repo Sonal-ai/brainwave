@@ -130,10 +130,13 @@ export default function FilesPage() {
         addToLog(`Starting Analysis for ${fileName}...`);
 
         try {
+            setLoading(true);
+            addToLog(`🧠 Analyzing with AI...`);
+
             const res = await fetch('/api/files/analyze', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: user.username, fileId })
+                body: JSON.stringify({ username: user.username, fileId }) // Defaults to mode: 'auto'
             });
 
             if (!res.ok) throw new Error(await res.text());
@@ -163,8 +166,12 @@ export default function FilesPage() {
 
         } catch (e: any) {
             addToLog(`❌ Error: ${e.message}`);
+        } finally {
+            setLoading(false);
         }
     };
+
+
 
     // --- NEW HANDLERS ---
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -214,10 +221,10 @@ export default function FilesPage() {
 
                 // STEP 2: Analyze if Timetable OR Auto-Detect Resource
                 if (isTimetable) {
-                    setStatusMessages(prev => [...prev, "Analysing with Genkit (Gemini 1.5 Pro)..."]);
-                    addToLog('🚀 Triggering Timetable Analysis...');
+                    setStatusMessages(prev => [...prev, "Analyzing with AI..."]);
                     await handleAnalyze(data.file.id, data.file.name);
                 } else if (!isTimetable && (!selectedSubject || selectedSubject === "")) {
+
                     // Auto-Classification for Resources
                     setStatusMessages(prev => [...prev, "Auto-Classifying file..."]);
                     addToLog('🧠 AI Classifying Subject...');
@@ -406,8 +413,18 @@ export default function FilesPage() {
                             {statusLog.map((log, i) => (
                                 <div key={i} style={{ marginBottom: '4px' }}>{log}</div>
                             ))}
-                            {loading && <div style={{ color: 'var(--accent-primary)', marginTop: '8px' }}>Processing...</div>}
+                            {loading && (
+                                <div style={{ color: 'var(--accent-primary)', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                    <div className="spinner-small" style={{
+                                        width: '12px', height: '12px', border: '2px solid rgba(139, 92, 246, 0.3)',
+                                        borderTopColor: 'var(--accent-primary)', borderRadius: '50%', animation: 'spin 0.8s linear infinite'
+                                    }}></div>
+                                    <span>Processing...</span>
+
+                                </div>
+                            )}
                         </div>
+
                         <div style={{ marginTop: '16px', textAlign: 'right' }}>
                             <button
                                 onClick={() => setShowStatusModal(false)}

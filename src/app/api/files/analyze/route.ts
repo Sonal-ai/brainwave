@@ -8,7 +8,7 @@ import fs from 'fs';
 
 export async function POST(req: Request) {
     try {
-        const { username, fileId } = await req.json();
+        const { username, fileId, mode = 'auto' } = await req.json();
 
         // 1. Get File Record
         const db = getDb();
@@ -29,53 +29,91 @@ export async function POST(req: Request) {
             return NextResponse.json({ success: false, message: "Physical file missing" }, { status: 404 });
         }
 
-        // 3. Prepare Image for Gemini (Base64 Data URI)
+        // 3. Prepare Image (Base64 for Gemini / File for OnDemand)
         const buffer = await readFile(localPath);
         let ext = (localPath.split('.').pop() || 'jpeg').toLowerCase();
         if (ext === 'jpg') ext = 'jpeg';
         const mimeType = ext === 'pdf' ? 'application/pdf' : `image/${ext}`;
-        const base64Data = `data:${mimeType};base64,${buffer.toString('base64')}`;
 
-        // 4. Call Genkit Flow (Gemini Direct)
-        console.log(`Analyzing timetable with Gemini: ${fileRecord.name}`);
+        // 4. Analysis Logic
+        let result: any = null;
+        let agentUsed = 'none';
 
-        try {
-            const result = await parseTimetable({ fileDataUri: base64Data });
+        // --- Try On-Demand if mode is 'auto' or 'ondemand' ---
+        if (mode === 'auto' || mode === 'ondemand') {
+            try {
+                console.log(`[Analysis] Attempting On-Demand... (Mode: ${mode})`);
+                const fileName = fileRecord.name || `file_${Date.now()}.${ext}`;
+                const fileObj = new File([buffer], fileName, { type: mimeType });
 
-            if (result && result.subjects) {
-                // Update User Timetable
-                user.timetable = result;
+                const onDemandPromise = (async () => {
+                    const { uploadMedia, analyzeTimetable } = await import('@/lib/ondemand');
+                    const mediaId = await uploadMedia(fileObj);
+                    if (!mediaId) throw new Error("On-Demand upload failed");
+                    return await analyzeTimetable(mediaId);
+                })();
 
-                const extractedSubjects = result.subjects.map((s: any) => s.name);
+                const timeoutPromise = new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error("On-Demand Timeout")), 12000)
+                );
 
-                console.log("Applying Strict Replace for subjects:", extractedSubjects);
-                // Strict Replace Logic (User Mode):
-                // We strictly replace the subject list with the new timetable's subjects.
-                user.subjects = extractedSubjects;
+                result = await Promise.race([onDemandPromise, timeoutPromise]);
 
-                // Update File Status
-                user.files[fileIndex].subject = 'Timetable (Analyzed)';
-                user.files[fileIndex].parsed = true;
-
-                // Save to DB
-                db.users[userIndex] = user;
-                saveDb(db);
-
-                return NextResponse.json({
-                    success: true,
-                    subjects: extractedSubjects,
-                    schedule: result
-                });
-            } else {
-                throw new Error("Empty result from Genkit");
+                if (result && result.subjects && result.schedule) {
+                    agentUsed = 'ondemand';
+                    console.log("✅ Analysis successful via On-Demand");
+                } else {
+                    throw new Error("Invalid output format");
+                }
+            } catch (err: any) {
+                console.warn("On-Demand agent failed:", err.message);
+                if (mode === 'ondemand') {
+                    return NextResponse.json({ success: false, message: `On-Demand failed: ${err.message}` }, { status: 500 });
+                }
             }
-        } catch (genkitError: any) {
-            console.error("Genkit Error:", genkitError);
-            return NextResponse.json({
-                success: false,
-                message: `AI Analysis Failed: ${genkitError.message || 'Unknown error'}. Did you set GOOGLE_API_KEY?`
-            }, { status: 500 });
         }
+
+        // --- Try Gemini if mode is 'gemini' or (mode is 'auto' and on-demand failed) ---
+        if (!result && (mode === 'auto' || mode === 'gemini')) {
+            try {
+                console.log(`[Analysis] Attempting Gemini... (Mode: ${mode})`);
+                const base64Data = `data:${mimeType};base64,${buffer.toString('base64')}`;
+                result = await parseTimetable({ fileDataUri: base64Data });
+                agentUsed = 'gemini';
+                console.log("✅ Analysis successful via Gemini (Fallback)");
+            } catch (err: any) {
+                console.error("Gemini agent failed:", err);
+                return NextResponse.json({ success: false, message: `Gemini failed: ${err.message}` }, { status: 500 });
+            }
+        }
+
+        if (result && (result.subjects || result.schedule)) {
+            // Update User Timetable
+            user.timetable = result;
+
+            // Use the subjects array from result (both agents now return it)
+            const extractedSubjects = result.subjects || [];
+
+            console.log(`Applying extracted subjects via ${agentUsed}:`, extractedSubjects);
+            user.subjects = extractedSubjects;
+
+            // Update File Status
+            user.files[fileIndex].subject = 'Timetable (Analyzed)';
+            user.files[fileIndex].parsed = true;
+
+            // Save to DB
+            db.users[userIndex] = user;
+            saveDb(db);
+
+            return NextResponse.json({
+                success: true,
+                subjects: extractedSubjects,
+                schedule: result,
+                agentUsed: agentUsed
+            });
+        }
+
+        return NextResponse.json({ success: false, message: "Empty result from AI agents" }, { status: 500 });
 
     } catch (e: any) {
         console.error("Analysis Error:", e);
