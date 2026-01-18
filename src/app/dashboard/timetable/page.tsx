@@ -91,8 +91,11 @@ export default function TimetablePage() {
     const DAYS = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
     const allSessions: any[] = [];
 
-    if (scheduleData && scheduleData.subjects) {
-        scheduleData.subjects.forEach((subj: any) => {
+    // Support both new schema { schedule: { subjects: [...] } } and old schema { subjects: [...] }
+    const subjectList = scheduleData?.schedule?.subjects || scheduleData?.subjects || [];
+
+    if (subjectList) {
+        subjectList.forEach((subj: any) => {
             if (subj.classes) {
                 subj.classes.forEach((cls: any) => {
                     allSessions.push({ ...cls, subjectName: subj.name });
@@ -100,6 +103,7 @@ export default function TimetablePage() {
             }
         });
     }
+
 
     // Helper to get sessions for a day
     const getSessionsForDay = (day: string) => {
