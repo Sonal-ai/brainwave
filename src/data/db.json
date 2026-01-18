@@ -867,6 +867,21 @@
           }
         ]
       }
+    },
+    {
+      "id": "b6e80f51-032f-49fb-a87f-4c0afbf7f311",
+      "username": "sonalkhanak@gmail.com",
+      "password": "",
+      "name": "Sonal Verma",
+      "subjects": [
+        "COMPUTER AIDED ENGINEERING GRAPHICS-2",
+        "BASIC ELECTRONICS & COMMUNICATION ENGINEERING",
+        "PROGRAMMING FUNDAMENTALS",
+        "AS SELECTED",
+        "MATHEMATICS-I",
+        "WEB DESIGNING"
+      ],
+      "files": []
     }
   ]
 }
