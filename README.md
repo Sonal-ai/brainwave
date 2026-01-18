@@ -16,8 +16,8 @@ graph TD
 
     %% ---------- INGESTION LAYER ----------
     Dashboard --> |Upload Timetable| vision[custom Agent]
-    Gemini --> |Extracts| Subjects[Subjects List]
-    Gemini --> |Extracts| Schedule[Class Schedule]
+    Timetable OCR Agent --> |Extracts| Subjects[Subjects List]
+    Timetable OCR Agent --> |Extracts| Schedule[Class Schedule]
 
     Dashboard --> |Upload Notes| Classifier[custom Agent]
     Classifier --> |Matches Subjects| Subjects
@@ -74,13 +74,13 @@ graph TD
 ### 3. Media Analysis (Powered by OnDemand)
 - **What it does:** Watch less, learn more. Paste a YouTube lecture link, and NEXUS extracts the knowledge for you.
 - **flow:**
-    1.  **Ingestion:** YouTube Video $\rightarrow$ **OnDemand Media API** (`plugin-1713961903`).
+    1.  **Ingestion:** YouTube Video $\rightarrow$ **OnDemand Media API**.
     2.  **Processing:** Video is transcribed into text asynchronously.
     3.  **Reasoning:** The transcript is fed into the **OnDemand Chat API**, allowing you to ask specific questions ("Is backpropagation explained?") and get factual YES/NO answers with evidence.
 
 ### 4. DTU Smart Bot (Personalized Agent)
 - **What it does:** A specialized chatbot tuned for DTU (Delhi Technological University) students.
-- **Tech Stack:** **OnDemand Chat Widget** (Bot ID: `6969fd7c...`).
+- **Tech Stack:** **OnDemand Chat Widget**.
 - **Context Awareness:** It is injected with real-time context about the student:
     - Current CGPA
     - Attendance Shortfalls
