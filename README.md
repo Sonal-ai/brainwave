@@ -8,7 +8,7 @@ NEXUS is an intelligent, AI-powered platform designed to streamline the academic
 
 ## 🧠 System Architecture & Workflow
 
-NEXUS utilizes a hybrid AI architecture, leveraging **Google Gemini** for high-precision document analysis and **OnDemand** for specialized media processing and conversational agents.
+NEXUS utilizes a hybrid AI architecture, leveraging **Media Knowledge** for high-precision document analysis and **OnDemand** for specialized media processing and conversational agents.
 
 ```mermaid
 graph TD
